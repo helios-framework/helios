@@ -21,17 +21,23 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 
 1. Install Helios at the command prompt:
 
+```shell
     $ gem install helios
+```
 
 2. Create a new Helios application:
 
+```shell
     $ helios new myapp
+```
 
 3. Change directory to `myapp` and start the web server:
 
+```shell
     $ cd myapp; helios server
+```
 
-4. Go to http://localhost:5000/admin and you’ll see your app's Web UI
+4. Go to [http://localhost:5000/admin](http://localhost:5000/admin) and you’ll see your app's Web UI
 
 Read on for instructions on the following:
 
@@ -59,18 +65,20 @@ require 'bundler'
 Bundler.require
 
 run Helios::Application.new do
-      service :data, model: 'path/to/DataModel.xcdatamodel'
-      service :push_notification
-      service :in_app_purchase
-      service :passbook
-    end
+  service :data, model: 'path/to/DataModel.xcdatamodel'
+  service :push_notification
+  service :in_app_purchase
+  service :passbook
+end
 ```
 
 ### Rails
 
 To create a Rails app that uses Postgres as its database, pass the `-d postgresql` argument to the `rails new` command:
 
+```shell
     $ rails new APP_PATH -d postgresql
+```
 
 If you're adding Helios to an existing Rails project, be sure to specify a PostgreSQL database in `config/database.yml` and check that the `pg` gem is included in your `Gemfile`:
 

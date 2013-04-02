@@ -126,7 +126,7 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
   </tr>
   <tr>
     <td><tt>DELETE /:resources/:id</tt></td>
-    <td>Delege the specified resource instance</td>
+    <td>Delete the specified resource instance</td>
   </tr>
 </table>
 

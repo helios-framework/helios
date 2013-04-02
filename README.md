@@ -21,15 +21,15 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 
 1. Install Helios at the command prompt:
 
-    $ gem install helios
+    `$ gem install helios`
 
 2. Create a new Helios application:
 
-    $ helios new myapp
+    `$ helios new myapp`
 
 3. Change directory to `myapp` and start the web server:
 
-    $ cd myapp; helios server
+    `$ cd myapp; helios server`
 
 4. Go to http://localhost:5000/admin and you’ll see your app's Web UI
 

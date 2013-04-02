@@ -1,0 +1,74 @@
+require 'sinatra/base'
+require 'sinatra/assetpack'
+require 'sinatra/backbone'
+require 'sinatra/support'
+require 'rack/contrib'
+
+require 'compass'
+require 'zurb-foundation'
+
+module Helios
+  class Frontend < Sinatra::Base
+    set :root, File.join(File.dirname(__FILE__), "frontend")
+    set :sass, load_paths: ["#{self.root}/stylesheets"]
+
+    register Sinatra::CompassSupport
+    register Sinatra::AssetPack
+    register Sinatra::JstPages
+
+    use Rack::BounceFavicon
+
+    assets do
+      serve '/javascripts', from: '/javascripts'
+      serve '/stylesheets', from: '/stylesheets'
+      serve '/images', from: '/images'
+      serve '/fonts', from: '/fonts'
+
+      js :application, '/javascripts/application.js', [
+        'javascripts/vendor/jquery.js',
+        'javascripts/vendor/underscore.js',
+        'javascripts/vendor/backbone.js',
+        'javascripts/vendor/backbone.paginator.js',
+        'javascripts/vendor/backbone.datagrid.js',
+        'javascripts/vendor/codemirror.js',
+        'javascripts/vendor/codemirror.javascript.js',
+        'javascripts/vendor/foundation.js',
+        'javascripts/vendor/foundation/foundation.dropdown.js',
+        'javascripts/vendor/foundation/foundation.reveal.js',
+        'javascripts/vendor/foundation/*',
+        'javascripts/vendor/date.js',
+        'javascripts/helios.js',
+        'javascripts/helios/models.js',
+        'javascripts/helios/collections.js',
+        'javascripts/helios/templates.js',
+        'javascripts/helios/views.js',
+        'javascripts/helios/router.js',
+      ]
+
+      css :application, '/stylesheets/application.css', [
+        'stylesheets/screen.css'
+      ]
+    end
+
+    set :views, settings.root + '/templates'
+    serve_jst '/javascripts/helios/templates.js'
+
+    get '' do
+      redirect request.fullpath + "/"
+    end
+
+    get '/' do
+      haml :'../views/index'
+    end
+  end
+end
+
+module Sinatra
+  module AssetPack
+    class Package
+      def production_path
+        add_cache_buster(@path, *files).gsub(/^\//, "")
+      end
+    end
+  end
+end

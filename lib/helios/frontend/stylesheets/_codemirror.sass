@@ -1,0 +1,219 @@
+.CodeMirror
+  width: 400px
+  float: left
+  +meslo-font-stack
+
+.CodeMirror-scroll
+  +border-radius(5px)
+  border: 1px #ccc solid
+  width: 500px
+
+  overflow: auto
+  height: 300px
+  // This is needed to prevent an IE[67] bug where the scrolled content
+  // is visible outside of the scrolling box.
+  position: relative
+  margin-bottom: 20px
+
+.CodeMirror-gutter
+  +border-left-radius(5px)
+
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 10
+  min-width: 2em
+  height: 100%
+  padding-right: 15px
+  margin-right: 10px
+  border-right: 1px #ccc solid
+
+.CodeMirror-gutter-text
+  color: #aaa
+  text-align: right
+  padding: .4em .2em .4em .4em
+  white-space: pre !important
+
+.CodeMirror-lines
+  padding: .4em
+  white-space: pre
+
+.CodeMirror pre
+  -moz-border-radius: 0
+  -webkit-border-radius: 0
+  -o-border-radius: 0
+  border-radius: 0
+  border-width: 0
+  margin: 0
+  padding: 0
+  background: transparent
+  font-family: inherit
+  font-size: inherit
+  padding: 0
+  margin: 0
+  white-space: pre
+  word-wrap: normal
+  line-height: inherit
+  color: inherit
+
+.CodeMirror-wrap
+  pre
+    word-wrap: break-word
+    white-space: pre-wrap
+    word-break: normal
+  .CodeMirror-scroll
+    overflow-x: hidden
+
+.CodeMirror
+  textarea
+    outline: none !important
+  pre.CodeMirror-cursor
+    z-index: 10
+    position: absolute
+    visibility: hidden
+    border-left: 1px solid black
+    border-right: none
+    width: 0
+
+.cm-keymap-fat-cursor pre.CodeMirror-cursor
+  width: auto
+  border: 0
+  background: transparent
+  background: rgba(0, 200, 0, 0.4)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6600c800, endColorstr=#4c00c800)
+  &:not(#nonsense_id)
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+
+// .CodeMirror pre.CodeMirror-cursor.CodeMirror-overwrite
+
+.CodeMirror-focused pre.CodeMirror-cursor
+  visibility: visible
+
+div.CodeMirror-selected
+  background: #d9d9d9
+
+.CodeMirror-focused div.CodeMirror-selected
+  background: #d7d4f0
+
+.CodeMirror-searching
+  background: #ffa
+  background: rgba(255, 255, 0, 0.4)
+
+// Default theme
+
+.cm-s-default span
+  &.cm-keyword
+    color: #708
+  &.cm-atom
+    color: #219
+  &.cm-number
+    color: #164
+  &.cm-def
+    color: #00f
+  &.cm-variable
+    color: black
+  &.cm-variable-2
+    color: #05a
+  &.cm-variable-3
+    color: #085
+  &.cm-property, &.cm-operator
+    color: black
+  &.cm-comment
+    color: #a50
+  &.cm-string
+    color: #a11
+  &.cm-string-2
+    color: #f50
+  &.cm-meta
+    color: #555
+  &.cm-error
+    color: #f00
+  &.cm-qualifier
+    color: #555
+  &.cm-builtin
+    color: #30a
+  &.cm-bracket
+    color: #cc7
+  &.cm-tag
+    color: #170
+  &.cm-attribute
+    color: #00c
+  &.cm-header
+    color: blue
+  &.cm-quote
+    color: #090
+  &.cm-hr
+    color: #999
+  &.cm-link
+    color: #00c
+
+span
+  &.cm-header, &.cm-strong
+    font-weight: bold
+  &.cm-em
+    font-style: italic
+  &.cm-emstrong
+    font-style: italic
+    font-weight: bold
+  &.cm-link
+    text-decoration: underline
+
+div.CodeMirror span
+  &.CodeMirror-matchingbracket
+    color: #0f0
+  &.CodeMirror-nonmatchingbracket
+    color: #f22
+
+// Solarized (dark) theme
+
+.cm-s-solarized-dark
+  color: #839496
+  div.CodeMirror-selected
+    background: #586e75
+  .CodeMirror-gutter,
+  .CodeMirror-gutter-text,
+  .CodeMirror-cursor
+    // border-left: 1px solid #839496
+  span
+    &.cm-keyword
+      color: #268bd2
+    &.cm-atom
+      color: #b58900
+    &.cm-number
+      color: #2aa198
+    &.cm-def, &.cm-variable
+      color: #839496
+    &.cm-variable-2
+      color: #b58900
+    &.cm-variable-3
+      color: #268bd2
+    &.cm-property
+      color: #859900
+    &.cm-operator
+      color: #2aa198
+    &.cm-comment
+      color: #586e75
+    &.cm-string, &.cm-string-2
+      color: #2aa198
+    &.cm-meta
+      color: #586e75
+    &.cm-error
+      color: #dc322f
+    &.cm-qualifier
+      color: #268bd2
+    &.cm-builtin
+      color: #b58900
+    &.cm-bracket
+      color: #dc322f
+    &.cm-tag
+      color: #268bd2
+    &.cm-attribute
+      color: #839496
+    &.cm-header
+      color: #cb4b16
+    &.cm-quote
+      color: #586e75
+    &.cm-hr
+      color: #cb4b16
+    &.cm-link
+      color: #6c71c4

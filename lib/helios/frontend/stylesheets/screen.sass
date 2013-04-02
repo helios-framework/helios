@@ -1,0 +1,191 @@
+@import "compass"
++global-reset
+
+@mixin bariol-font-stack
+  font-family: "Bariol", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif
+
+@mixin helvetica-font-stack
+  font-family: "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif
+
+@mixin meslo-font-stack
+  font-family: "Meslo", Menlo, Monaco, monospace
+
+@import "./settings"
+@import "./bariol"
+@import "./fonts"
+@import "./iphone"
+@import "./codemirror"
+
+@import "foundation"
+
+body
+  -webkit-text-stroke: 1px transparent
+@media only screen and (max-device-width:480px)
+  body
+    -webkit-text-stroke: 0 black
+
+[role="application"]
+  +grid-row
+
+[role="banner"]
+  +grid-row($behavior: nest-collapse)
+
+  #logo
+    +bariol-font-stack
+    font-weight: 700
+    text-align: left
+    +grid-column(2, $float: left)
+    padding-left: 13px
+
+  [role="navigation"]
+    +grid-row($behavior: nest-collapse)
+    +grid-column(10, $float: right)
+
+    ul
+      float: right !important
+      margin-top: 10px
+
+    li, a
+      color: #222
+
+    li
+      padding: 0
+
+      a
+        display: block
+        text-align: left
+        padding: 1em 1.5em 2em 1.5em
+        height: 2em
+
+      i
+        font-size: 1.5em
+        float: left
+        padding-right: 20px
+
+[role="main"]
+  +grid-row($behavior: nest-collapse)
+
+  .master
+    +grid-column(12, $float: left)
+
+  .detail
+    +panel
+    +grid-column(4, $float: right, $last-column: true)
+    float: right !important
+
+  .detail + .master
+    +grid-column(8, $float: left)
+
+  .master
+    table
+      +border-radius(8px)
+      display: block
+      table-layout: fixed
+      width: 100%
+      overflow: auto
+
+    th
+      font-weight: 600
+      color: #333
+
+    tr td
+      max-width: 40em
+      white-space: nowrap
+      overflow: auto
+
+      div
+        max-height: 4.5em
+        overflow: auto
+        white-space: pre-wrap
+
+    .pagination
+      +grid-row($behavior: nest-collapse)
+      +pagination
+
+      display: none
+
+      ul
+        +grid-column(12, $center: true)
+
+
+    #datagrid
+      table + p
+        width: 100%
+        text-align: center
+        padding: 2em
+        font-size: 2em
+
+  .detail
+
+    form
+      fieldset
+        border: 0
+        padding: 0
+      ol
+        list-style: none
+        padding: 0
+        margin: 0
+
+        li
+          +grid-row
+
+      button, input[type="submit"]
+        +button
+
+.auxiliary
+  +grid-row($behavior: nest-collapse)
+  margin: 10px 0
+
+  h2
+    width: 200px
+    float: left
+    margin-left: 15px
+
+  button, input, form
+    float: right !important
+
+  .filter input
+    width: 300px
+    margin-top: 5px
+    margin-left: 20px
+    margin-right: 15px
+
+  button, button:hover, .button, .button:hover
+    color: #222
+
+    &.dropdown
+      text-align: left !important
+
+  .dropdown.button:before
+    border-color: #222 transparent transparent transparent !important
+
+  #entities-dropdown
+    float: right
+    width: 300px
+    margin-right: 15px
+
+  #entities
+    margin-left: -86px
+    font-size: 1.5em
+
+    a
+      display: block
+
+#compose-modal
+  width: 90%
+  left: 45%
+  top: 30px
+
+  .iphone
+    float: right
+
+  form
+    float: left
+    width: 500px
+
+    fieldset
+      border: none
+      padding: 0
+
+      legend
+        display: none

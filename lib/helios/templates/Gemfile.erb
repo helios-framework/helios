@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+<% if options.edge %>
+gem 'helios', git: 'git://github.com/helios-framework/helios.git'
+<% else %>
+gem 'helios'
+<% end %>
+
+gem 'unicorn'
+gem 'pg'

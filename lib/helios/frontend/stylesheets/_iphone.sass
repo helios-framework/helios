@@ -1,0 +1,141 @@
+figure.iphone
+  float: right
+  padding: 0
+  margin: 0
+  width: 320px
+  height: 480px
+  background: #444 url("/images/wallpaper-clown-fish.jpg")
+  position: relative
+  margin-bottom: 20px
+  -webkit-text-stroke: 1px transparent !important
+
+  figure
+    padding: 0
+    margin: 0
+
+  header
+    .status
+      height: 20px
+      background: #000
+      color: #ccc
+      width: 100%
+      font-size: 14px
+      padding: 1px 0
+
+      .signal
+        margin-left: 5px
+
+      .battery
+        float: right
+        margin-right: 5px
+        display: none
+
+    time
+      +background-image(linear-gradient(top, transparentize(#fff, 0.7), transparentize(#000, 0.6) 50%, transparentize(#000, 0.5) 51%, transparentize(#111, 0.3)))
+      +box-shadow(0 1px 1px transparentize(#fff, 0.8))
+      +text-shadow(0 1px 2px #222)
+      color: #fff
+      text-align: center
+      display: block
+      height: 98px
+
+      span
+        display: block
+
+      .time
+        font-size: 4em
+        padding: 0.1em 0 0.075em 0
+
+      .date
+        font-size: 1em
+
+  .notification
+    +background-image(linear-gradient(top, transparentize(#fff, 0.4), transparentize(#000, 0.3) 15%, transparentize(#111, 0.3)))
+    +border-radius(10px)
+
+    width: 270px
+    min-height: 80px
+    max-height: 200px
+    padding: 10px
+    margin: 70px auto 20px auto
+    overflow: none
+
+    h1, p
+      +text-shadow(0 1px 2px #111)
+      color: #fff
+      padding-left: 40px
+      line-height: 1em
+
+    h1
+      font-size: 1em
+      font-weight: bold
+
+  footer
+    +background-image(linear-gradient(top, transparentize(#ccc, 0.5), transparentize(#000, 0.6) 50%, transparentize(#000, 0.5) 51%, transparentize(#111, 0.3)))
+    position: absolute
+    bottom: 0px
+    display: block
+    +clearfix
+    width: 320px
+    height: 98px
+    border-top: 1px transparentize(#000, 0.4) solid
+
+    @-webkit-keyframes spotlight
+      0%
+        -webkit-mask-position: -800px
+      100%
+        -webkit-mask-position: 0px
+
+    .slider
+      width: 285px
+      height: 46px
+      margin-left: 10px
+      margin-top: 20px
+      position: relative
+    input
+      -webkit-appearance: none
+      width: 100%
+      background: #ddd
+      padding: 3px
+      border: 1px solid #525252
+      -webkit-border-radius: 15px
+      border-radius: 15px
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, black), color-stop(1, #222222))
+
+    input
+      -webkit-appearance: none
+      width: 100%
+      background: #ddd
+      padding: 3px
+      border: 1px solid #525252
+      -webkit-border-radius: 15px
+      border-radius: 15px
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, black), color-stop(1, #222222))
+
+    .slider input::-webkit-slider-thumb, input::-webkit-slider-thumb
+      -webkit-appearance: none
+      z-index: 100
+      position: relative
+      width: 68px
+      height: 44px
+      -webkit-border-radius: 10px
+      border-radius: 10px
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAYCAYAAAB0kZQKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASJJREFUeNpi7OnpYaAC0AXiF0D8mhzNTAzUASBHnAdim4F0BAhIA/EBIC4aSEeAADMQ9wLxRiDmHyhHwIAfNHqMiXZEcXExGJMCiNCjCMTHgDiTkFmM////p4rXe3t78Rm0DIjTgfgLNkkWoGZQij7MQFsQBY2aICC+Rq80gQ2oA/EZIE4YSEeAACcQzwfimVD2gDgCBtKgiVZlIB0BAgbQbBwykI5A5I4BtPsaNLfcHKiQWADEJiAHDERIfAfiLKgjBiQ67kCD/zK2NAFqjMyi0AJQVnPCI78GiBNxFttQF6ZToVjG5ohfoLoOiKcMVO54BA3+swPVntgKxIbEOIAWjvgLxJVA7APE7waisHoKxBFAfGSgSszL0MLnBTmaAQIMAKg/OsrT7JG8AAAAAElFTkSuQmCC'), -webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.51, #d1d1d1), color-stop(1, #a1a1a1))
+      background-repeat: no-repeat
+      background-position: 50%
+
+    .slider span
+      position: absolute
+      z-index: 99
+      top: 30%
+      left: 37%
+      font-family: "Helvetica Neue", Helvetica, sans-serif
+      font-size: 24px
+      color: white
+      cursor: default
+      -webkit-user-select: none
+      -webkit-mask-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(0, 0, 0, 0.3)), color-stop(0.45, rgba(0, 0, 0, 0.3)), color-stop(0.5, rgba(0, 0, 0, 1)), color-stop(0.55, rgba(0, 0, 0, 0.3)), color-stop(1, rgba(0, 0, 0, 0.3)))
+      -webkit-mask-size: 1000px
+      -webkit-mask-repeat: no-repeat
+      -webkit-animation-timing-function: ease-in-out
+      -webkit-animation: spotlight 4s infinite

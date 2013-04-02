@@ -59,11 +59,11 @@ require 'bundler'
 Bundler.require
 
 run Helios::Application.new do
-      service :data, model: 'path/to/DataModel.xcdatamodel'
-      service :push_notification
-      service :in_app_purchase
-      service :passbook
-    end
+  service :data, model: 'path/to/DataModel.xcdatamodel'
+  service :push_notification
+  service :in_app_purchase
+  service :passbook
+end
 ```
 
 ### Rails

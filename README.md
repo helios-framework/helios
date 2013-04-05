@@ -19,7 +19,7 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 
 ## Getting Started on OS X
 
-1. Verify Ruby Installation
+1. Verify Ruby Installation:
 
 	$ ruby -v
 	
@@ -47,11 +47,11 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 	$ cd myapp
  
    
-7. Create a `$DATABASE_URL` environment variable:
+7. Create a `.env` file and specify the database to use. Replace `$USER` with your username.
 
-	$ export DATABASE_URL=postgres://$USER@localhost/myapp_db
+	$ echo 'DATABASE_URL=postgres://$USER@localhost/myapp_db' >> .env;
 	
-	*Note: You can set this in your `.bashrc` or `.bash_profile` if you want to keep it around between terminal sessions.*
+	*If you don't know your username, simply type `whoami` into your command prompt*
 
 8. Start the web server:
 

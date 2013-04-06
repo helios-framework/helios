@@ -300,7 +300,7 @@ There's still a lot to do to make Helios even better. Here are some ideas that a
 - Test coverage
 - More documentation
 - More example projects
-- Better RubyMotion integratoin
+- Better RubyMotion integration
 - Support for multiple schema definitions (not just Core Data)
 - Send push notifications from the UI
 - Support for additional platforms (Android, WP7)

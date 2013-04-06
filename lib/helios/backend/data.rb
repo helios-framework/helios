@@ -14,8 +14,6 @@ class Helios::Backend::Data < Sinatra::Base
     content_type :json
   end
 
-  helpers Sinatra::Param
-
   options '/' do
     pass unless self.class < Helios::Administerable
 

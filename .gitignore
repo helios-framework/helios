@@ -16,3 +16,4 @@ tmp
 .yardoc
 _yardoc
 doc/
+/vendor/bundle

@@ -126,7 +126,7 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
   </tr>
   <tr>
     <td><tt>DELETE /:resources/:id</tt></td>
-    <td>Delege the specified resource instance</td>
+    <td>Delete the specified resource instance</td>
   </tr>
 </table>
 
@@ -300,7 +300,7 @@ There's still a lot to do to make Helios even better. Here are some ideas that a
 - Test coverage
 - More documentation
 - More example projects
-- Better RubyMotion integratoin
+- Better RubyMotion integration
 - Support for multiple schema definitions (not just Core Data)
 - Send push notifications from the UI
 - Support for additional platforms (Android, WP7)

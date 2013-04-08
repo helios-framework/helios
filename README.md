@@ -295,7 +295,7 @@ Once you've installed the [Heroku Toolbelt](https://toolbelt.heroku.com), and ha
     $ heroku create
     $ git push heroku master
 
-## Integrating with iOS Application
+## Integrating with an iOS Application
 
 ### Core Data Synchronization
 
@@ -304,6 +304,8 @@ With [AFIncrementalStore](https://github.com/AFNetworking/AFIncrementalStore), y
 See ["Building an iOS App with AFIncrementalStore and the Core Data Buildpack"](https://devcenter.heroku.com/articles/ios-core-data-buildpack-app) on the Heroku Dev Center for a comprehensive guide on how to use AFIncrementalStore with the Core Data buildpack. An article for Helios is forthcoming, but aside from deployment, the instructions are essentially unchanged.
 
 ### Push Notification Registration
+
+With [Orbiter](https://github.com/mattt/Orbiter) you can integrate Push Notifications into your app easily.
 
 ```objective-c
 - (void)application:(UIApplication *)application

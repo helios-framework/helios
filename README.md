@@ -17,21 +17,47 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 - Ruby 1.9
 - PostgreSQL 9.1 _([Postgres.app](http://postgresapp.com) is the easiest way to get a Postgres server running on your Mac)_
 
-## Getting Started
+## Getting Started on OS X
 
-1. Install Helios at the command prompt:
+1. Verify Ruby Installation:
+
+	$ ruby -v
+	
+	*If you do not see `ruby 1.9.x` printed, we suggest installing [RVM](http://rvm.io) to manage Ruby versions.*
+	
+
+2. Install the postgres gem at the command prompt:
+
+	$ gem install pg	
+
+3. Create a postgres database at the command prompt:
+
+	$ createdb myapp_db
+
+4. Install Helios at the command prompt:
 
     $ gem install helios
 
-2. Create a new Helios application:
+5. Create a new Helios application:
 
     $ helios new myapp
+    
+6. Change directory to `myapp`
 
-3. Change directory to `myapp` and start the web server:
+	$ cd myapp
+ 
+   
+7. Create a `.env` file and specify the database to use. Replace `$USER` with your username.
 
-    $ cd myapp; helios server
+	$ echo 'DATABASE_URL=postgres://$USER@localhost/myapp_db' >> .env;
+	
+	*If you don't know your username, simply type `whoami` into your command prompt*
 
-4. Go to http://localhost:5000/admin and you’ll see your app's Web UI
+8. Start the web server:
+
+    $ helios server
+
+9. Go to [http://localhost:5000/admin](http://localhost:5000/admin) and you’ll see your app's Web UI
 
 Read on for instructions on the following:
 

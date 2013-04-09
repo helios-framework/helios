@@ -21,18 +21,17 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 
 1. Verify Ruby Installation:
 
-	$ ruby -v
+    `$ ruby -v`
 
 	*If you do not see `ruby 1.9.x` printed, we suggest installing [RVM](http://rvm.io) to manage Ruby versions.*
 
-
 2. Install the postgres gem at the command prompt:
 
-	$ gem install pg
+    `$ gem install pg`
 
 3. Create a postgres database at the command prompt:
 
-	$ createdb myapp_db
+    `$ createdb myapp_db`
 
 4. Install Helios at the command prompt:
 

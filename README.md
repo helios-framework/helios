@@ -32,7 +32,7 @@ Helios also comes with a Web UI. Browse and search through all of your database 
 
 3. Create a postgres database at the command prompt:
 
-	$ createdb myapp_db
+	$ createdb -h localhost myapp_db
 
 4. Install Helios at the command prompt:
 

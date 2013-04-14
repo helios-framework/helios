@@ -1,11 +1,22 @@
 require 'rack/push-notification'
 require 'sinatra/param'
+require 'houston'
 
 class Helios::Backend::PushNotification < Sinatra::Base
   helpers Sinatra::Param  
 
   def initialize(app, options = {})
     super(Rack::PushNotification.new)
+    @apn_certificate = options[:apn_certificate]
+    @apn_environment = options[:apn_environment]
+  end
+
+  def apn_certificate
+    @apn_certificate || ENV['APN_CERTIFICATE']
+  end
+
+  def apn_environment
+    @apn_environment || ENV['APN_ENVIRONMENT']
   end
 
   get '/devices/?' do
@@ -79,16 +90,16 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
   def client
     begin
-      return nil unless settings.apn_certificate and ::File.exist?(settings.apn_certificate)
+      return nil unless apn_certificate and ::File.exist?(apn_certificate)
       
-      client = case settings.apn_environment.to_sym
+      client = case apn_environment.to_sym
                 when :development 
                   Houston::Client.development
                 when :production
                   Houston::Client.production
                 end
-      client.certificate = ::File.read(settings.apn_certificate)
-      
+      client.certificate = ::File.read(apn_certificate)
+
       return client
     rescue
       return nil

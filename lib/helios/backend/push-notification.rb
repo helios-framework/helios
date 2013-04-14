@@ -4,19 +4,12 @@ require 'houston'
 
 class Helios::Backend::PushNotification < Sinatra::Base
   helpers Sinatra::Param  
+  attr_reader :apn_certificate, :apn_environment
 
   def initialize(app, options = {})
     super(Rack::PushNotification.new)
-    @apn_certificate = options[:apn_certificate]
-    @apn_environment = options[:apn_environment]
-  end
-
-  def apn_certificate
-    @apn_certificate || ENV['APN_CERTIFICATE']
-  end
-
-  def apn_environment
-    @apn_environment || ENV['APN_ENVIRONMENT']
+    @apn_certificate = options[:apn_certificate] || ENV['APN_CERTIFICATE']
+    @apn_environment = options[:apn_environment] || ENV['APN_ENVIRONMENT']
   end
 
   get '/devices/?' do

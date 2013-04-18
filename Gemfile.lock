@@ -6,7 +6,7 @@ PATH
       commander (~> 4.1)
       compass (~> 0.12)
       foreman (~> 0.60)
-      haml (~> 3.1)
+      haml (=> 3.1)
       json (~> 1.7)
       rack-contrib (~> 1.1)
       rack-core-data (~> 0.3)

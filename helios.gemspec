@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra-backbone", "~> 0.1.0.rc2"
   s.add_dependency "sinatra-param", "~> 0.1"
   s.add_dependency "sinatra-support", "~> 1.2"
-  s.add_dependency "haml", "~> 3.1"
+  s.add_dependency "haml", ">= 3.1"
   s.add_dependency "compass", "~> 0.12"
   s.add_dependency "zurb-foundation", "~> 4.0"
   s.add_dependency "rails-database-url", "~> 1.0"

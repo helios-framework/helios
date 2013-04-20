@@ -4,13 +4,11 @@ command :console do |c|
 
   c.action do |args, options|
       require 'irb'
-      require 'foreman/env'
+      require 'dotenv'
       require 'sequel'
 
       @env = {}
-      Foreman::Env.new(".env").entries do |name, value|
-        @env[name] = value
-      end
+      @env.update Dotenv::Environment.new(".env")
 
       Sequel.connect(@env['DATABASE_URL'])
 

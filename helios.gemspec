@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Helios is an open-source framework that provides essential backend services for iOS apps, from data synchronization and user accounts to push notifications, in-app purchases, and passbook integration. It allows developers to get a client-server app up-and-running in just a few minutes, and seamlessly incorporate functionality as necessary."
 
   s.add_dependency "commander", "~> 4.1"
-  s.add_dependency "foreman", "~> 0.60"
+  s.add_dependency "foreman", "~> 0.63"
   s.add_dependency "rack-contrib", "~> 1.1"
   s.add_dependency "rack-core-data", "~> 0.3"
   s.add_dependency "rack-push-notification", "~> 0.4"

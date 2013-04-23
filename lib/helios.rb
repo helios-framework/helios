@@ -1,10 +1,10 @@
 require 'rack'
 
 module Helios
-  class Helios::Application
+  class Application
     def initialize(app = nil, options = {}, &block)
       map = {}
-      map['/'] = Rack::Cascade.new [app, Helios::Backend.new(&block)]
+      map['/'] = Rack::Cascade.new([app, Helios::Backend.new(&block)].compact)
       map['/admin'] = Helios::Frontend.new if options.fetch(:frontend, true)
 
       @app = Rack::URLMap.new(map)

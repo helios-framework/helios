@@ -76,7 +76,7 @@ Bundler.require
 
 run Helios::Application.new do
   service :data, model: 'path/to/DataModel.xcdatamodel'
-  service :push_notification
+  service :push_notification, apn_certificate: 'path/to/apple_push_notification.pem', apn_environment: 'development'
   service :in_app_purchase
   service :passbook
 end
@@ -102,7 +102,7 @@ Helios can be run as Rails middleware by adding this to the configuration block 
 ```ruby
 config.middleware.use Helios::Application do
   service :data, model: 'path/to/DataModel.xcdatamodel'
-  service :push_notification
+  service :push_notification, apn_certificate: 'path/to/apple_push_notification.pem', apn_environment: 'development'
   service :in_app_purchase
   service :passbook
 end
@@ -163,6 +163,10 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
   <tr>
     <td><tt>DELETE /devices/:token</tt></td>
     <td>Unregister a device from receiving push notifications</td>
+  </tr>
+  <tr>
+    <td><tt>POST /message</tt></td>
+    <td>Send out a push notification to some devices</td>
   </tr>
 </table>
 
@@ -266,6 +270,12 @@ To run Helios in development mode on `localhost`, run the `server` command:
 
     $ helios server
 
+### Testing Push Notifications
+
+Once you have registered a device and set up your certificate, try this:
+
+    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+
 ### Running the Helios Console
 
 You can start an IRB session with the runtime environment of the Helios application with the `console` command:
@@ -310,6 +320,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     }];
 }
 ```
+
+### Converting Your Push Notification Certificate
+
+> These instructions come from the [APN on Rails](https://github.com/PRX/apn_on_rails) project.
+
+Once you have the certificate from Apple for your application, export your key
+and the apple certificate as p12 files. Here is a quick walkthrough on how to do this:
+
+1. Click the disclosure arrow next to your certificate in Keychain Access and select the certificate and the key. 
+2. Right click and choose `Export 2 items…`. 
+3. Choose the p12 format from the drop down and name it `cert.p12`.
+
+Now covert the p12 file to a pem file:
+
+    $ openssl pkcs12 -in cert.p12 -out apple_push_notification.pem -nodes -clcerts
 
 ## Coming Attractions
 

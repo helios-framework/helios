@@ -11,6 +11,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+example/.sass-cache
 
 # YARD artifacts
 .yardoc

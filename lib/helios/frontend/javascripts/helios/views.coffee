@@ -231,3 +231,21 @@ class Helios.Views.Passes extends Backbone.View
     e.preventDefault()
     @collection.query = $(e.target).val()
     @collection.fetch()
+
+class Helios.Views.Issues extends Backbone.View
+  template: JST['issues']
+  el: "[role='main']"
+
+  initialize: ->
+    @datagrid = new Backbone.Datagrid({
+        collection: @collection,
+        columns: @collection.fields,
+        paginated: true,
+        perPage: 20
+      })
+
+  render: =>
+    @$el.html(@template())
+    @$el.find("#datagrid").html(@datagrid.el)
+
+    @

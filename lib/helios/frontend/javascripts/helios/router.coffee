@@ -12,6 +12,7 @@ class Helios.Routers.Root extends Backbone.Router
     'push-notification':  'push_notification'
     'in-app-purchase':    'in_app_purchase'
     'passbook':           'passbook'
+    'newsstand':          'newsstand'
 
   index: ->
     Helios.entities.fetch(type: 'OPTIONS')
@@ -35,4 +36,7 @@ class Helios.Routers.Root extends Backbone.Router
     @views.passes ?= new Helios.Views.Passes(collection: @passes)
     @views.passes.render()
 
-
+  newsstand: ->
+    @issues ?= new Helios.Collections.Issues
+    @views.passes ?= new Helios.Views.Issues(collection: @issues)
+    @views.passes.render()

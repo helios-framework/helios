@@ -248,4 +248,81 @@ class Helios.Views.Issues extends Backbone.View
     @$el.html(@template())
     @$el.find("#datagrid").html(@datagrid.el)
 
+    @newView ?= new Helios.Views.NewIssue()
+    @newView.render()
+
     @
+
+class Helios.Views.NewIssue extends Backbone.View
+  template: JST['newsstand/new']
+  el: "#new-modal"
+
+  events:
+    'submit form': 'submit'
+    'click button#send': 'submit'
+
+  render: ->
+    @$el.html(@template())
+
+    $('input[type="file"]').fileupload
+      dataType: "json"
+      add: (e, data) ->
+        data.context = $("<button/>").text("Upload").appendTo(document.body).click ->
+          data.context = $("<p/>").text("Uploading...").replaceAll($(this))
+          data.submit()
+
+      done: (e, data) ->
+        data.context.text "Upload finished."
+
+
+    @
+
+  submit: ->
+    $form = @$el.find("form#new")
+    console.log("Submit", $form)
+    # $.ajax("/message"
+    #   type: "POST"
+    #   dataType: "json"
+    #   data: {
+    #     tokens: tokens,
+    #     payload: payload
+    #   }
+    # )
+
+    #   beforeSend: =>
+    #     @$el.find(".alert-error, .alert-success").remove()
+
+    #   success: (data, status) =>
+    #     alert = """
+    #       <div class="alert alert-block alert-success">
+    #         <button type="button" class="close" data-dismiss="alert">×</button>
+    #         <h4>Push Notification Succeeded</h4>
+    #       </div>
+    #     """
+    #     @$el.prepend(alert)
+
+    #   error: (data, status) =>
+    #     alert = """
+    #       <div class="alert alert-block alert-error">
+    #         <button type="button" class="close" data-dismiss="alert">×</button>
+    #         <h4>Push Notification Failed</h4>
+    #         <p>#{$.parseJSON(data.responseText).error}</p>
+    #       </div>
+    #     """
+    #     @$el.prepend(alert)
+
+  disable: ->
+    alert = """
+      <div class="alert alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4>Push Notification Sending Unavailable</h4>
+        <p>Check that Rack::PushNotification initializes with a <tt>:certificate</tt> parameter, and that the certificate exists and is readable in the location specified.</p>
+      </div>
+    """
+
+    @$el.prepend(alert)
+
+
+    $form = @$el.find("form#new")
+    $form.css(opacity: 0.5)
+    $form.find("input").disable()

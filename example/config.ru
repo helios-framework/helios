@@ -10,7 +10,7 @@ app = Helios::Application.new do
       provider:               'AWS',
       aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],
       aws_secret_access_key:  ENV['AWS_SECRET_ACCESS_KEY']
-    }
+    } if ENV['AWS_ACCESS_KEY_ID'] and ENV['AWS_SECRET_ACCESS_KEY']
 end
 
 run app

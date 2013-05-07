@@ -53,8 +53,8 @@ class Helios.Views.Devices extends Backbone.View
   render: =>
     @$el.html(@template())
 
-    @composeView ?= new Helios.Views.Compose()
-    @composeView.render()
+    # @composeView ?= new Helios.Views.Compose()
+    # @composeView.render()
     @$el.find("#datagrid").html(@datagrid.el)
 
     @

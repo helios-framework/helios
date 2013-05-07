@@ -1,13 +1,15 @@
-require 'rack/core-data'
+require 'core_data'
+require 'sequel'
+require 'rack/scaffold'
 require 'sinatra/param'
 
 class Helios::Backend::Data < Sinatra::Base
   helpers Sinatra::Param
 
   def initialize(app, options = {})
-    super(Rack::CoreData(options[:model]))
+    super(Rack::Scaffold.new(options))
 
-    @model = Rack::CoreData::DataModel.new(options[:model])
+    @model = CoreData::DataModel.new(options[:model]) rescue nil
   end
 
   before do

@@ -12,10 +12,11 @@ command :console do |c|
 
       Sequel.connect(@env['DATABASE_URL'])
 
-      require 'rack/core-data'
+      require 'rack/scaffold'
       require 'rack/push-notification'
       require 'rack/in-app-purchase'
       require 'rack/passbook'
+      require 'rack/newsstand'
 
       include Rack
 

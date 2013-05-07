@@ -16,16 +16,17 @@
     </li>
     <li>
       <label>Covers</lable>
-      <input type="file" name="covers"/>
+      <input type="file" name="covers[]" multiple/>
     </li>
     <li>
       <label>Assets</lable>
-      <input type="file" name="assets"/>
+      <input type="file" name="assets[]" multiple/>
     </li>
     <li>
-      <label>Published?</lable>
-      <input type="checkbox" name="published"/>
+      <label>Published At</lable>
       <input type="datetime" name="published_at"/>
     </li>
   </ol>
+
+  <button id="create" type="button">Create</button>
 </form>

@@ -22,7 +22,10 @@ class Helios::Backend::Newsstand < Sinatra::Base
   get '/issues/?' do
     pass unless request.accept? 'application/json'
 
+    param :q, String
+
     issues = Rack::Newsstand::Issue.dataset
+    issues = issues.filter("tsv @@ to_tsquery('english', ?)", "#{params[:q]}:*") if params[:q] and not params[:q].empty?
 
     if params[:page] or params[:per_page]
       param :page, Integer, default: 1, min: 1

@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require
 
 app = Helios::Application.new do
-    service :data, model: Dir['*.xcdatamodel*'].first
+    service :data, model: Dir['*.xcdatamodel*'].first rescue nil
     service :push_notification
     service :in_app_purchase
     service :passbook

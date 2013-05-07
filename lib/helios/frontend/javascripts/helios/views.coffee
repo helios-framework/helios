@@ -1,5 +1,5 @@
 class Helios.Views.Entities extends Backbone.View
-  template: JST['entities']
+  template: JST['data/entities']
   el: "[role='main']"
 
   events:
@@ -36,7 +36,7 @@ class Helios.Views.Entity extends Backbone.View
     @
 
 class Helios.Views.Devices extends Backbone.View
-  template: JST['devices']
+  template: JST['push-notification/devices']
   el: "[role='main']"
 
   events:
@@ -65,7 +65,7 @@ class Helios.Views.Devices extends Backbone.View
     @collection.fetch()
 
 class Helios.Views.Compose extends Backbone.View
-  template: JST['compose']
+  template: JST['push-notification/compose']
   el: "#compose-modal"
 
   events:
@@ -181,7 +181,7 @@ class Helios.Views.Compose extends Backbone.View
     $time.find(".date").text(Date.now().toString("dddd, MMMM d"))
 
 class Helios.Views.Receipts extends Backbone.View
-  template: JST['receipts']
+  template: JST['in-app-purchase/receipts']
   el: "[role='main']"
 
   events:
@@ -207,7 +207,7 @@ class Helios.Views.Receipts extends Backbone.View
     @collection.fetch()
 
 class Helios.Views.Passes extends Backbone.View
-  template: JST['passes']
+  template: JST['passbook/passes']
   el: "[role='main']"
 
   events:
@@ -231,3 +231,53 @@ class Helios.Views.Passes extends Backbone.View
     e.preventDefault()
     @collection.query = $(e.target).val()
     @collection.fetch()
+
+class Helios.Views.Issues extends Backbone.View
+  template: JST['newsstand/issues']
+  el: "[role='main']"
+
+  events:
+    'keyup form.filter input': 'filter'
+
+  initialize: ->
+    @datagrid = new Backbone.Datagrid({
+        collection: @collection,
+        columns: @collection.fields,
+        paginated: true,
+        perPage: 20
+      })
+
+  render: =>
+    @$el.html(@template())
+    @$el.find("#datagrid").html(@datagrid.el)
+
+    @newView ?= new Helios.Views.NewIssue()
+    @newView.render()
+
+    @
+
+  filter: (e) ->
+    e.preventDefault()
+    @collection.query = $(e.target).val()
+    @collection.fetch()
+
+class Helios.Views.NewIssue extends Backbone.View
+  template: JST['newsstand/new']
+  el: "#new-modal"
+
+  events:
+    'submit form': 'submit'
+    'click button#create': 'submit'
+
+  render: ->
+    @$el.html(@template())
+
+    @
+
+  submit: ->
+    $form = @$el.find("form#new")
+    $.ajax("/issues"
+      type: "POST"
+      dataType: "json"
+      data: $form.serialize()
+    )

@@ -89,3 +89,12 @@ class Helios.Collections.Passes extends Helios.Collection
     dataType: 'json'
     url: '/passes?'
 
+class Helios.Collections.Issues extends Helios.Collection
+  model: Helios.Models.Issue
+  url: '/issues'
+  fields: ['name', 'title', 'summary', 'published_at', 'expires_at']
+
+  paginator_core:
+    type: 'GET'
+    dataType: 'json'
+    url: '/issues?'

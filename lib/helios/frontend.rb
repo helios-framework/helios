@@ -26,6 +26,10 @@ module Helios
 
       js :application, '/javascripts/application.js', [
         'javascripts/vendor/jquery.js',
+        # 'javascripts/vendor/jquery/*',
+        'javascripts/vendor/jquery/jquery.ui.widget.js',
+        'javascripts/vendor/jquery/jquery.fileupload.js',
+        'javascripts/vendor/jquery/jquery.fileupload-ui.js',
         'javascripts/vendor/underscore.js',
         'javascripts/vendor/backbone.js',
         'javascripts/vendor/backbone.paginator.js',

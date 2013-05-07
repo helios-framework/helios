@@ -2,10 +2,10 @@ require 'bundler'
 Bundler.require
 
 app = Helios::Application.new do
-    # service :data, model: Dir['*.xcdatamodel*'].first
-    # service :push_notification
-    # service :in_app_purchase
-    # service :passbook
+    service :data, model: Dir['*.xcdatamodel*'].first
+    service :push_notification
+    service :in_app_purchase
+    service :passbook
     service :newsstand, storage: {
       provider:               'AWS',
       aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],

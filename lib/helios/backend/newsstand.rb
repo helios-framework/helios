@@ -49,19 +49,39 @@ class Helios::Backend::Newsstand < Sinatra::Base
     status 204
   end
 
-  post '/issue/?' do
+  post '/issues/?' do
     status 503 and return unless @storage
 
+    param :title, String, empty: false
     param :name, String, empty: false
-    param :description, String, empty: false
+    param :summary, String, empty: false
 
-    # TODO
-    directory = @storage.directories.create(key: "issue-#{issue.name}", public: true)
+    @issue = Rack::Newsstand::Issue.new(params)
 
-    file = directory.files.create(
-      key: 'resume.html',
-      body: File.open("/path/to/my/resume.html"),
-      public: true
-    )
+    if @issue.save
+      directory = @storage.directories.create(key: "issue-#{@issue.name}", public: true)
+
+      [:covers, :assets].each do |attribute|
+        (params[attribute] || []).each do |filename|
+          file = directory.files.create(
+            key: File.basename(filename),
+            body: File.open(filename),
+            public: true
+          )
+          @issue[attribute] << file.url
+        end
+      end
+
+      if @issue.save
+        status 201
+        @issue.to_json
+      else
+        status 400
+        {errors: @issue.errors}.to_json
+      end
+    else
+      status 400
+      {errors: @issue.errors}.to_json
+    end
   end
 end

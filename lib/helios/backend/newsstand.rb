@@ -12,7 +12,7 @@ class Helios::Backend::Newsstand < Sinatra::Base
   def initialize(app, options = {})
     super(Rack::Newsstand.new)
 
-    @storage = Fog::Storage.new(options[:storage])
+    @storage = Fog::Storage.new(options[:storage]) if options[:storage]
   end
 
   before do
@@ -32,7 +32,7 @@ class Helios::Backend::Newsstand < Sinatra::Base
       param :per_page, Integer, default: 100, in: (1..100)
 
       {
-        passes: issues.limit(params[:per_page], (params[:page] - 1) * params[:per_page]).naked.all,
+        issues: issues.limit(params[:per_page], (params[:page] - 1) * params[:per_page]).naked.all,
         page: params[:page],
         total: issues.count
       }.to_json
@@ -41,7 +41,7 @@ class Helios::Backend::Newsstand < Sinatra::Base
       param :offset, Integer, default: 0, min: 0
 
       {
-        passes: issues.limit(params[:limit], params[:offset]).naked.all
+        issues: issues.limit(params[:limit], params[:offset]).naked.all
       }.to_json
     end
   end

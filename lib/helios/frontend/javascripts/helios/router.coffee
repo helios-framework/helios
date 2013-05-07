@@ -38,5 +38,5 @@ class Helios.Routers.Root extends Backbone.Router
 
   newsstand: ->
     @issues ?= new Helios.Collections.Issues
-    @views.passes ?= new Helios.Views.Issues(collection: @issues)
-    @views.passes.render()
+    @views.issues ?= new Helios.Views.Issues(collection: @issues)
+    @views.issues.render()

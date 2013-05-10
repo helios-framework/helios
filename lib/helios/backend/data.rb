@@ -1,10 +1,11 @@
+require 'core_data'
+require 'sequel'
+
 require 'rack/scaffold'
 
 require 'sinatra/base'
 require 'sinatra/param'
 
-require 'core_data'
-require 'sequel'
 
 class Helios::Backend::Data < Sinatra::Base
   helpers Sinatra::Param

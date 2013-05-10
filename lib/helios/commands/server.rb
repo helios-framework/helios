@@ -28,6 +28,10 @@ def validate_database_settings!
 
   say_error "DATABASE_URL environment variable not set in .env or in Rails config/database.yml" and abort if ENV['DATABASE_URL'].nil?
 
+  uri = URI(ENV['DATABASE_URL'])
+
+  say_error "DATABASE_URL environment variable not set to PostgreSQL database" and abort unless ["postgres", "postgresql"].include?(uri.scheme)
+
   begin
     db = Sequel.connect(ENV['DATABASE_URL'])
     db.test_connection
@@ -36,7 +40,6 @@ def validate_database_settings!
     case error.message
     when /database "(.+)" does not exist/
       if agree "Would you like to create this database now? (y/n)"
-        uri = URI(db.uri)
         host, database = uri.host, uri.path.delete("/")
 
         log 'createdb', database

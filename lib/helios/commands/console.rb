@@ -6,19 +6,12 @@ command :console do |c|
       require 'irb'
       require 'dotenv'
       require 'sequel'
-
-      @env = {}
-      @env.update Dotenv::Environment.new(".env")
-
-      Sequel.connect(@env['DATABASE_URL'])
-
-      require 'rack/scaffold'
-      require 'rack/push-notification'
-      require 'rack/in-app-purchase'
-      require 'rack/passbook'
-      require 'rack/newsstand'
+      require 'helios'
 
       include Rack
+
+      Dotenv.load
+      Sequel.connect(ENV['DATABASE_URL'])
 
       ARGV.clear
       IRB.start

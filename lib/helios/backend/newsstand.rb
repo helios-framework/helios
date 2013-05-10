@@ -9,7 +9,7 @@ require 'fog'
 class Helios::Backend::Newsstand < Sinatra::Base
   helpers Sinatra::Param
 
-  def initialize(app, options = {})
+  def initialize(app, options = {}, &block)
     super(Rack::Newsstand.new)
 
     @storage = Fog::Storage.new(options[:storage]) if options[:storage]

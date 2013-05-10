@@ -4,8 +4,12 @@ require 'sinatra/param'
 class Helios::Backend::Passbook < Sinatra::Base
   helpers Sinatra::Param
 
-  def initialize(app, options = {})
+  def initialize(app, options = {}, &block)
     super(Rack::Passbook.new)
+  end
+
+  before do
+    content_type :json
   end
 
   get '/passes' do
@@ -13,7 +17,7 @@ class Helios::Backend::Passbook < Sinatra::Base
 
     passes = Rack::Passbook::Pass.dataset
     passes = passes.filter("tsv @@ to_tsquery('english', ?)", "#{params[:q]}:*") if params[:q] and not params[:q].empty?
-    
+
     if params[:page] or params[:per_page]
       param :page, Integer, default: 1, min: 1
       param :per_page, Integer, default: 100, in: (1..100)

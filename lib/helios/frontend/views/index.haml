@@ -3,46 +3,21 @@
   %head
     %meta{charset: "utf-8"}
     %meta{:'http-equiv' => "X-UA-Compatible", content: "IE=edge,chrome=1"}
+    %meta{name: "generator", content: "Helios #{Helios::VERSION}"}
     %title Helios
     %link{rel: "license", href: "http://opensource.org/licenses/MIT", :title => "MIT License"}
-    %link{rel: "description", href: "Helios"}
+    %link{rel: "shortcut icon", href: "data:image/x-icon;,", type: "image/x-icon"}
     = css :application
 
   %body{role: 'application', data: {version: Helios::VERSION}}
     %header{role: 'banner'}
       %h1#logo
-        %a{href: ''} Helios
+        %a{href: ''}
+          %img{src: 'images/helios.svg'}
 
       %nav{role: 'navigation'}
-        %ul.button-group
-          %li.button
-            %a{href: "#data"}
-              %i.data
-              Data
-          %li.button
-            %a{href: "#push-notification"}
-              %i.push-notification
-              Push Notification
 
-          %li.button
-            %a{href: "#in-app-purchase"}
-              %i.in-app-purchase
-              In-App Purchase
-
-          %li.button
-            %a{href: "#passbook"}
-              %i.passbook
-              Passbook
-
-          %li.button
-            %a{href: "#newsstand"}
-              %i.tablet
-              Newsstand
 
     %div{role: 'main'}
-
-    / %footer
-    /   %p= "Helios #{Helios::VERSION}"
-
 
     = js :application

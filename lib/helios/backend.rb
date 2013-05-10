@@ -1,17 +1,31 @@
 require 'rack'
 
 module Helios
-  class Backend < Rack::Cascade
+  class Backend < Rack::Builder
+    DEFAULT_PATHS = {
+      data: '/'
+    }
+
     require 'rails-database-url' if const_defined?(:Rails)
 
-    def initialize(&block)
+    def initialize(*args, &block)
       raise ArgumentError, "Missing block" unless block_given?
+      super(&nil)
 
-      @services = []
+      @services = {}
 
       instance_eval(&block)
+    end
 
-      super(@services)
+    def call(env)
+      return super(env) unless env["REQUEST_METHOD"] == "OPTIONS" and env["REQUEST_PATH"] == "/"
+
+      links = []
+      @services.each do |path, middleware|
+        links << %{<#{path}>; rel="#{middleware}"}
+      end
+
+      [206, {"Link" => links.join("\n")}, []]
     end
 
     private
@@ -27,21 +41,18 @@ module Helios
         end
       end
 
-      middleware.instance_eval{ include Helios::Administerable } if options.fetch(:frontend, true)
+      path = "/#{(options.delete(:root) || DEFAULT_PATHS[identifier] || identifier)}".squeeze("/")
 
-      @services << middleware.new(self, options, &block) if middleware
+      map path do
+        instance_eval(&block) if block_given?
+        run middleware.new(self, options)
+      end
+
+      @services[path] = middleware
     end
 
     def constantize(identifier)
       identifier.to_s.split(/([[:alpha:]]*)/).select{|c| /[[:alpha:]]/ === c}.map(&:capitalize).join("")
-    end
-  end
-
-  module Administerable
-    attr_accessor :admin
-
-    def admin?
-      !!@admin
     end
   end
 end

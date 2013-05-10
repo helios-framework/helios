@@ -1,9 +1,6 @@
 @import "compass"
 +global-reset
 
-@mixin bariol-font-stack
-  font-family: "Bariol", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif
-
 @mixin helvetica-font-stack
   font-family: "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif
 
@@ -11,7 +8,6 @@
   font-family: "Meslo", Menlo, Monaco, monospace
 
 @import "./settings"
-@import "./bariol"
 @import "./fonts"
 @import "./iphone"
 @import "./codemirror"
@@ -31,7 +27,7 @@ body
   +grid-row($behavior: nest-collapse)
 
   #logo
-    +bariol-font-stack
+    +helvetica-font-stack
     font-weight: 700
     text-align: left
     +grid-column(2, $float: left)

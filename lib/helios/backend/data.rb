@@ -16,8 +16,7 @@ class Helios::Backend::Data < Sinatra::Base
     content_type :json
   end
 
-  options '/' do
-    pass unless self.class < Helios::Administerable
+  options '/resources' do
 
     links = []
     @model.entities.each do |entity|

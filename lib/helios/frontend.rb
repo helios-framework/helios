@@ -26,7 +26,6 @@ module Helios
 
       js :application, '/javascripts/application.js', [
         'javascripts/vendor/jquery.js',
-        # 'javascripts/vendor/jquery/*',
         'javascripts/vendor/jquery/jquery.ui.widget.js',
         'javascripts/vendor/jquery/jquery.fileupload.js',
         'javascripts/vendor/jquery/jquery.fileupload-ui.js',
@@ -39,8 +38,8 @@ module Helios
         'javascripts/vendor/foundation.js',
         'javascripts/vendor/foundation/foundation.dropdown.js',
         'javascripts/vendor/foundation/foundation.reveal.js',
-        'javascripts/vendor/foundation/*',
         'javascripts/vendor/date.js',
+        'javascripts/vendor/linkheaders.js',
         'javascripts/helios.js',
         'javascripts/helios/models.js',
         'javascripts/helios/collections.js',
@@ -54,25 +53,14 @@ module Helios
       ]
     end
 
-    set :views, settings.root + '/templates'
-    serve_jst '/javascripts/helios/templates.js'
+    serve_jst '/javascripts/helios/templates.js', root: settings.root + '/templates'
 
     get '' do
       redirect request.fullpath + "/"
     end
 
     get '/' do
-      haml :'../views/index'
-    end
-  end
-end
-
-module Sinatra
-  module AssetPack
-    class Package
-      def production_path
-        add_cache_buster(@path, *files).gsub(/^\//, "")
-      end
+      haml :index
     end
   end
 end

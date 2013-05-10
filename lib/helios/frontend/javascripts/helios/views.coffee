@@ -1,3 +1,10 @@
+class Helios.Views.Navigation extends Backbone.View
+  template: JST['navigation']
+  el: "[role='navigation']"
+
+  render: =>
+    @$el.html(@template())
+
 class Helios.Views.Entities extends Backbone.View
   template: JST['data/entities']
   el: "[role='main']"

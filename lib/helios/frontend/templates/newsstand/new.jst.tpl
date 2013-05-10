@@ -1,11 +1,7 @@
 <h1>New Issue</h1>
 
-<form id="new">
+<form id="new" action="<%= Helios.services['newsstand']%>/issues" method="post" enctype="multipart/form-data">
   <ol>
-    <li>
-      <label>Title</lable>
-      <input type="text" name="title"/>
-    </li>
     <li>
       <label>Name</lable>
       <input type="text" name="name"/>
@@ -23,8 +19,8 @@
       <input type="file" name="assets[]" multiple/>
     </li>
     <li>
-      <label>Published At</lable>
-      <input type="datetime" name="published_at"/>
+      <label>Published</lable>
+      <input type="datetime-local" name="published_at"/>
     </li>
   </ol>
 

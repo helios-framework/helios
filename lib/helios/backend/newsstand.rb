@@ -45,7 +45,7 @@ class Helios::Backend::Newsstand < Sinatra::Base
     end
   end
 
-  head '/issue/?' do
+  head '/issues/new?' do
     status 503 and return unless @storage
 
     status 204
@@ -54,36 +54,44 @@ class Helios::Backend::Newsstand < Sinatra::Base
   post '/issues/?' do
     status 503 and return unless @storage
 
-    param :title, String, empty: false
     param :name, String, empty: false
-    param :summary, String, empty: false
+    param :summary, String
 
-    @issue = Rack::Newsstand::Issue.new(params)
+    issue = Rack::Newsstand::Issue.new(params)
 
-    if @issue.save
-      directory = @storage.directories.create(key: "issue-#{@issue.name}", public: true)
+    if issue.valid?
+      directory = @storage.directories.create(key: "newsstand-issue-#{issue.name}-#{Time.now.to_i}", public: true)
 
+      covers, assets = {}, []
       [:covers, :assets].each do |attribute|
-        (params[attribute] || []).each do |filename|
+        (params[attribute] || []).each do |f|
           file = directory.files.create(
-            key: File.basename(filename),
-            body: File.open(filename),
+            key: File.basename(f[:filename]),
+            body: File.open(f[:tempfile]),
             public: true
           )
-          @issue[attribute] << file.url
+
+          case attribute
+          when :covers
+            covers["SOURCE"] = file.public_url
+          when :assets
+            assets << file.public_url
+          end
         end
       end
 
-      if @issue.save
+      issue.set(cover_urls: covers, asset_urls: assets)
+
+      if issue.save
         status 201
-        @issue.to_json
+        issue.to_json
       else
         status 400
-        {errors: @issue.errors}.to_json
+        {errors: issue.errors}.to_json
       end
     else
       status 400
-      {errors: @issue.errors}.to_json
+      {errors: issue.errors}.to_json
     end
   end
 end

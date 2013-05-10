@@ -27,6 +27,20 @@ window.Helios = {
 }
 
 $ ->
+  $.fn.serializeMultipart = ->
+    obj = $(this)
+
+    formData = new FormData()
+    $.each $(obj).find("input[type='file']"), (i, tag) ->
+      $.each $(tag)[0].files, (j, file) ->
+        formData.append tag.name, file
+
+    params = $(obj).serializeArray()
+    $.each params, (i, val) ->
+      formData.append val.name, val.value
+
+    formData
+
   $(document).foundation()
   $('body').delegate 'a[href^=#]', 'click', (event) ->
     event.preventDefault()

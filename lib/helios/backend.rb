@@ -59,6 +59,6 @@ end
 
 require 'helios/backend/data'
 require 'helios/backend/in-app-purchase'
-require 'helios/backend/newsstand'
 require 'helios/backend/passbook'
 require 'helios/backend/push-notification'
+require 'helios/backend/newsstand'

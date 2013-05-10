@@ -5,7 +5,7 @@
     <input type="text" placeholder="Filter Issues..." value=""/>
   </form>
 
-  <button class="button" data-reveal-id="new-modal">Create</button>
+  <button class="button" data-reveal-id="new-issue-modal">Create</button>
 
 </div>
 
@@ -13,4 +13,4 @@
   <div id="datagrid"></div>
 </div>
 
-<div id="new-modal" class="reveal-modal"></div>
+<div id="new-issue-modal" class="reveal-modal"></div>

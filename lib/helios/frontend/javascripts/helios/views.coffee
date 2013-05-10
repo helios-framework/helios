@@ -115,7 +115,8 @@ class Helios.Views.Compose extends Backbone.View
     if $("input[name='recipients']:checked").val() == "specified"
       tokens = [$form.find("#tokens").val()]
 
-    $.ajax("/message"
+    $.ajax(
+      url:"/message"
       type: "POST"
       dataType: "json"
       data: {
@@ -254,6 +255,13 @@ class Helios.Views.Issues extends Backbone.View
         perPage: 20
       })
 
+    $.ajax(
+      url: Helios.services['newsstand'] + "/issues/new",
+      type: "HEAD",
+      error: ->
+        $(".auxiliary button").prop('disabled', true)
+    )
+
   render: =>
     @$el.html(@template())
     @$el.find("#datagrid").html(@datagrid.el)
@@ -270,7 +278,7 @@ class Helios.Views.Issues extends Backbone.View
 
 class Helios.Views.NewIssue extends Backbone.View
   template: JST['newsstand/new']
-  el: "#new-modal"
+  el: "#new-issue-modal"
 
   events:
     'submit form': 'submit'
@@ -283,8 +291,17 @@ class Helios.Views.NewIssue extends Backbone.View
 
   submit: ->
     $form = @$el.find("form#new")
-    $.ajax("/issues"
+    console.log($form.find("input[type='file']"))
+    $.ajax(
+      url: $form.attr("action")
       type: "POST"
       dataType: "json"
-      data: $form.serialize()
+      data: $form.serializeMultipart()
+      cache: false
+      contentType: false
+      processData: false
+      success: (data) ->
+        console.log("Success", data)
+      error: (data) ->
+        console.log("Failure", data)
     )

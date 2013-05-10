@@ -1,4 +1,6 @@
 require 'rack/in-app-purchase'
+
+require 'sinatra/base'
 require 'sinatra/param'
 
 class Helios::Backend::InAppPurchase < Sinatra::Base

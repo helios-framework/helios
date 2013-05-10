@@ -1,4 +1,6 @@
 require 'rack/passbook'
+
+require 'sinatra/base'
 require 'sinatra/param'
 
 class Helios::Backend::Passbook < Sinatra::Base

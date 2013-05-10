@@ -1,4 +1,3 @@
-require 'rack'
 require 'rack/newsstand'
 
 require 'sinatra/base'

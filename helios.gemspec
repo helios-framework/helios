@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
 
-  s.files         = Dir["./**/*"].reject{|file| file =~ /\.\/(bin|example|log|pkg|script|spec|test|vendor)/} + Dir.glob("./lib/helios/templates", File::FNM_DOTMATCH)
+  s.files         = Dir["./**/*"].reject{|file| file =~ /\.\/(bin|example|log|pkg|script|spec|test|vendor)/} + Dir.glob("./lib/helios/templates/*", File::FNM_DOTMATCH)
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]

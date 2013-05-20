@@ -67,6 +67,8 @@ $ ->
           Helios.services['passbook'] = href
 
     Helios.entities = new Helios.Collections.Entities
-    Helios.entities.fetch(type: 'OPTIONS', url: (Helios.services['data'] || "") + '/resources', success: Helios.initialize, error: Helios.initialize)
+
+    url = _.compact([Helios.services['data'], 'resources']).join('/').replace(/^\//, "")
+    Helios.entities.fetch(type: 'OPTIONS', url: url, success: Helios.initialize, error: Helios.initialize)
   )
 

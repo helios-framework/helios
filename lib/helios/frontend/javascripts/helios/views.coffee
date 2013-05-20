@@ -34,7 +34,7 @@ class Helios.Views.Entity extends Backbone.View
     if @collection
       @datagrid ?= new Backbone.Datagrid({
         collection: @collection,
-        columns: @collection.first().attributes.keys,
+        columns: (if @collection.first() then @collection.first().attributes.keys else []),
         paginated: true,
         perPage: 20
       })

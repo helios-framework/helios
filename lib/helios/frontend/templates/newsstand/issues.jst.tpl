@@ -5,8 +5,9 @@
     <input type="text" placeholder="Filter Issues..." value=""/>
   </form>
 
+<% if (false) { %>
   <button class="button" data-reveal-id="new-issue-modal">Create</button>
-
+<% } %>
 </div>
 
 <div class="master">

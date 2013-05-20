@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-in-app-purchase", "~> 0.1"
   s.add_dependency "rack-passbook", "~> 0.1"
   s.add_dependency "rack-newsstand", "~> 0.1"
-  s.add_dependency "rack-scaffold"
+  s.add_dependency "rack-scaffold", ">= 0.0.2"
   s.add_dependency "core_data"
   s.add_dependency "json", "~> 1.7"
   s.add_dependency "coffee-script", "~> 2.2"

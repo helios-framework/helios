@@ -4,22 +4,14 @@ command :console do |c|
 
   c.action do |args, options|
       require 'irb'
-      require 'foreman/env'
+      require 'dotenv'
       require 'sequel'
-
-      @env = {}
-      Foreman::Env.new(".env").entries do |name, value|
-        @env[name] = value
-      end
-
-      Sequel.connect(@env['DATABASE_URL'])
-
-      require 'rack/core-data'
-      require 'rack/push-notification'
-      require 'rack/in-app-purchase'
-      require 'rack/passbook'
+      require 'helios'
 
       include Rack
+
+      Dotenv.load
+      Sequel.connect(ENV['DATABASE_URL'])
 
       ARGV.clear
       IRB.start

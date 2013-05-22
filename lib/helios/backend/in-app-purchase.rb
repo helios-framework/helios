@@ -1,13 +1,15 @@
 require 'rack/in-app-purchase'
+
+require 'sinatra/base'
 require 'sinatra/param'
 
 class Helios::Backend::InAppPurchase < Sinatra::Base
   helpers Sinatra::Param
 
-  def initialize(app, options = {})
+  def initialize(app, options = {}, &block)
     super(Rack::InAppPurchase.new)
   end
-  
+
   before do
     content_type :json
   end

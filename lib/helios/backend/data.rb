@@ -1,21 +1,26 @@
-require 'rack/core-data'
+require 'core_data'
+require 'sequel'
+
+require 'rack/scaffold'
+
+require 'sinatra/base'
 require 'sinatra/param'
+
 
 class Helios::Backend::Data < Sinatra::Base
   helpers Sinatra::Param
 
   def initialize(app, options = {})
-    super(Rack::CoreData(options[:model]))
+    super(Rack::Scaffold.new(options))
 
-    @model = Rack::CoreData::DataModel.new(options[:model])
+    @model = CoreData::DataModel.new(options[:model]) rescue nil
   end
 
   before do
     content_type :json
   end
 
-  options '/' do
-    pass unless self.class < Helios::Administerable
+  options '/resources' do
 
     links = []
     @model.entities.each do |entity|

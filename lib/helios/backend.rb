@@ -1,22 +1,31 @@
 require 'rack'
 
 module Helios
-  class Backend < Rack::Cascade
+  class Backend < Rack::Builder
+    DEFAULT_PATHS = {
+      data: '/'
+    }
+
     require 'rails-database-url' if const_defined?(:Rails)
 
-    def initialize(&block)
-      @services = []
+    def initialize(*args, &block)
+      raise ArgumentError, "Missing block" unless block_given?
+      super(&nil)
 
-      block = lambda { |app|
-        service :data, model: Dir['**/*.xcdatamodeld'].first rescue false
-        service :push_notification
-        service :in_app_purchase
-        service :passbook
-      } unless block_given?
+      @services = {}
 
       instance_eval(&block)
+    end
 
-      super(@services)
+    def call(env)
+      return super(env) unless env["REQUEST_METHOD"] == "OPTIONS" and env["REQUEST_PATH"] == "/"
+
+      links = []
+      @services.each do |path, middleware|
+        links << %{<#{path}>; rel="#{middleware}"}
+      end
+
+      [206, {"Link" => links.join("\n")}, []]
     end
 
     private
@@ -28,30 +37,28 @@ module Helios
         begin
           middleware = Helios::Backend.const_get(constantize(identifier))
         rescue NameError
-          raise LoadError, "Could not find matching service for #{identifier.inspect}. You may need to install an additional gem (such as helios-#{identifier})."
+          raise LoadError, "Could not find matching service for #{identifier.inspect} (Helios::Backend::#{constantize(identifier)}). You may need to install an additional gem (such as helios-#{identifier})."
         end
       end
 
-      middleware.instance_eval{ include Helios::Administerable } if options.fetch(:frontend, true)
+      path = "/#{(options.delete(:root) || DEFAULT_PATHS[identifier] || identifier)}".squeeze("/")
 
-      @services << middleware.new(self, options, &block) if middleware
+      map path do
+        instance_eval(&block) if block_given?
+        run middleware.new(self, options)
+      end
+
+      @services[path] = middleware
     end
 
     def constantize(identifier)
       identifier.to_s.split(/([[:alpha:]]*)/).select{|c| /[[:alpha:]]/ === c}.map(&:capitalize).join("")
     end
   end
-
-  module Administerable
-    attr_accessor :admin
-
-    def admin?
-      !!@admin
-    end
-  end
 end
 
 require 'helios/backend/data'
-require 'helios/backend/push-notification'
 require 'helios/backend/in-app-purchase'
 require 'helios/backend/passbook'
+require 'helios/backend/push-notification'
+require 'helios/backend/newsstand'

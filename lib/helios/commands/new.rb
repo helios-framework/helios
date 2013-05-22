@@ -31,7 +31,6 @@ command :new do |c|
 
     begin
       FileUtils.mkdir_p(path) and Dir.chdir(path)
-      log "create", ""
 
       Dir.glob(File.join(File.dirname(__FILE__), "../templates/") + "*.erb", File::FNM_DOTMATCH).each do |template|
         file = File.basename(template, ".erb")

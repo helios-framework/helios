@@ -70,14 +70,13 @@ class Helios.Collections.Devices extends Helios.Collection
 
 class Helios.Collections.Receipts extends Helios.Collection
   model: Helios.Models.Receipt
-  url: '/receipts'
+
   fields: ['transaction_id', 'product_id', 'purchase_date', 'original_transaction_id', 'original_purchase_date', 'app_item_id', 'version_external_identifier', 'bid', 'bvrs', 'ip_address']
 
   paginator_core:
     type: 'GET'
     dataType: 'json'
     url: '/receipts?'
-
 
 class Helios.Collections.Passes extends Helios.Collection
   model: Helios.Models.Pass
@@ -89,3 +88,12 @@ class Helios.Collections.Passes extends Helios.Collection
     dataType: 'json'
     url: '/passes?'
 
+class Helios.Collections.Issues extends Helios.Collection
+  model: Helios.Models.Issue
+  url: '/issues'
+  fields: ['name', 'title', 'summary', 'published_at', 'expires_at']
+
+  paginator_core:
+    type: 'GET'
+    dataType: 'json'
+    url: '/issues?'

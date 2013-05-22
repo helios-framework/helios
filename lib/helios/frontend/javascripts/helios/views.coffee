@@ -1,5 +1,12 @@
+class Helios.Views.Navigation extends Backbone.View
+  template: JST['navigation']
+  el: "[role='navigation']"
+
+  render: =>
+    @$el.html(@template())
+
 class Helios.Views.Entities extends Backbone.View
-  template: JST['entities']
+  template: JST['data/entities']
   el: "[role='main']"
 
   events:
@@ -27,7 +34,7 @@ class Helios.Views.Entity extends Backbone.View
     if @collection
       @datagrid ?= new Backbone.Datagrid({
         collection: @collection,
-        columns: @collection.first().attributes.keys,
+        columns: (if @collection.first() then @collection.first().attributes.keys else []),
         paginated: true,
         perPage: 20
       })
@@ -36,7 +43,7 @@ class Helios.Views.Entity extends Backbone.View
     @
 
 class Helios.Views.Devices extends Backbone.View
-  template: JST['devices']
+  template: JST['push-notification/devices']
   el: "[role='main']"
 
   events:
@@ -53,8 +60,8 @@ class Helios.Views.Devices extends Backbone.View
   render: =>
     @$el.html(@template())
 
-    @composeView ?= new Helios.Views.Compose()
-    @composeView.render()
+    # @composeView ?= new Helios.Views.Compose()
+    # @composeView.render()
     @$el.find("#datagrid").html(@datagrid.el)
 
     @
@@ -65,7 +72,7 @@ class Helios.Views.Devices extends Backbone.View
     @collection.fetch()
 
 class Helios.Views.Compose extends Backbone.View
-  template: JST['compose']
+  template: JST['push-notification/compose']
   el: "#compose-modal"
 
   events:
@@ -108,7 +115,8 @@ class Helios.Views.Compose extends Backbone.View
     if $("input[name='recipients']:checked").val() == "specified"
       tokens = [$form.find("#tokens").val()]
 
-    $.ajax("/message"
+    $.ajax(
+      url:"/message"
       type: "POST"
       dataType: "json"
       data: {
@@ -181,7 +189,7 @@ class Helios.Views.Compose extends Backbone.View
     $time.find(".date").text(Date.now().toString("dddd, MMMM d"))
 
 class Helios.Views.Receipts extends Backbone.View
-  template: JST['receipts']
+  template: JST['in-app-purchase/receipts']
   el: "[role='main']"
 
   events:
@@ -207,7 +215,7 @@ class Helios.Views.Receipts extends Backbone.View
     @collection.fetch()
 
 class Helios.Views.Passes extends Backbone.View
-  template: JST['passes']
+  template: JST['passbook/passes']
   el: "[role='main']"
 
   events:
@@ -231,3 +239,69 @@ class Helios.Views.Passes extends Backbone.View
     e.preventDefault()
     @collection.query = $(e.target).val()
     @collection.fetch()
+
+class Helios.Views.Issues extends Backbone.View
+  template: JST['newsstand/issues']
+  el: "[role='main']"
+
+  events:
+    'keyup form.filter input': 'filter'
+
+  initialize: ->
+    @datagrid = new Backbone.Datagrid({
+        collection: @collection,
+        columns: @collection.fields,
+        paginated: true,
+        perPage: 20
+      })
+
+    $.ajax(
+      url: Helios.services['newsstand'] + "/issues/new",
+      type: "HEAD",
+      error: ->
+        $(".auxiliary button").prop('disabled', true)
+    )
+
+  render: =>
+    @$el.html(@template())
+    @$el.find("#datagrid").html(@datagrid.el)
+
+    @newView ?= new Helios.Views.NewIssue()
+    @newView.render()
+
+    @
+
+  filter: (e) ->
+    e.preventDefault()
+    @collection.query = $(e.target).val()
+    @collection.fetch()
+
+class Helios.Views.NewIssue extends Backbone.View
+  template: JST['newsstand/new']
+  el: "#new-issue-modal"
+
+  events:
+    'submit form': 'submit'
+    'click button#create': 'submit'
+
+  render: ->
+    @$el.html(@template())
+
+    @
+
+  submit: ->
+    $form = @$el.find("form#new")
+    console.log($form.find("input[type='file']"))
+    $.ajax(
+      url: $form.attr("action")
+      type: "POST"
+      dataType: "json"
+      data: $form.serializeMultipart()
+      cache: false
+      contentType: false
+      processData: false
+      success: (data) ->
+        console.log("Success", data)
+      error: (data) ->
+        console.log("Failure", data)
+    )

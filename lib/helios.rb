@@ -1,13 +1,19 @@
 require 'rack'
 
 module Helios
-  class Helios::Application
+  class Application
     def initialize(app = nil, options = {}, &block)
-      map = {}
-      map['/'] = Helios::Backend.new(&block)
-      map['/admin'] = Helios::Frontend.new if options.fetch(:frontend, true)
+      @app = Rack::Builder.new do
+        map '/admin' do
+          use Rack::Auth::Basic, "Restricted Area" do |username, password|
+            username == (ENV['HELIOS_ADMIN_USERNAME'] || "") and password == (ENV['HELIOS_ADMIN_PASSWORD'] || "")
+          end if ENV['HELIOS_ADMIN_USERNAME'] or ENV['HELIOS_ADMIN_PASSWORD']
 
-      @app = Rack::URLMap.new(map)
+          run Helios::Frontend.new
+        end
+
+        run Helios::Backend.new(&block)
+      end
     end
 
     def call(env)

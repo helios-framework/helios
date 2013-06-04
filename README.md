@@ -159,15 +159,15 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 <table>
   <caption>Endpoints</caption>
   <tr>
-    <td><tt>PUT /push-notification/devices/:token</tt></td>
+    <td><tt>PUT /push_notification/devices/:token</tt></td>
     <td>Register or update existing device for push notifications</td>
   </tr>
   <tr>
-    <td><tt>DELETE /push-notification/devices/:token</tt></td>
+    <td><tt>DELETE /push_notification/devices/:token</tt></td>
     <td>Unregister a device from receiving push notifications</td>
   </tr>
   <tr>
-    <td><tt>POST /push-notification/message</tt></td>
+    <td><tt>POST /push_notification/message</tt></td>
     <td>Send out a push notification to some devices</td>
   </tr>
 </table>

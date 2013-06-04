@@ -353,11 +353,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 }
 ```
 
-### Google Cloud Messaging Registration
-
-See more detail [Google Cloud Messaging Tutorial](http://developer.android.com/google/gcm/gs.html)
-
-
 ### Converting Your Push Notification Certificate
 
 > These instructions come from the [APN on Rails](https://github.com/PRX/apn_on_rails) project.
@@ -372,6 +367,13 @@ and the apple certificate as p12 files. Here is a quick walkthrough on how to do
 Now covert the p12 file to a pem file:
 
     $ openssl pkcs12 -in cert.p12 -out apple_push_notification.pem -nodes -clcerts
+
+## Integrating with an Android Application
+    
+### Google Cloud Messaging Registration
+
+See more detail [Google Cloud Messaging Tutorial](http://developer.android.com/google/gcm/gs.html)
+
 
 ## Coming Attractions
 

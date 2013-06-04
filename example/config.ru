@@ -3,7 +3,8 @@ Bundler.require
 
 app = Helios::Application.new do
     service :data, model: Dir['*.xcdatamodel*'].first, only: [:create, :read]
-    service :push_notification, frontend: false
+    service :push_notification, frontend: true
+    service :gcm, gcm_api_key: ENV['GCM_API_KEY']
     service :in_app_purchase
     service :passbook
     service :newsstand, storage: ({

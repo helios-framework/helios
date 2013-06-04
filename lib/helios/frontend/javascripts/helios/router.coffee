@@ -13,6 +13,7 @@ class Helios.Routers.Root extends Backbone.Router
   routes:
     '':                   'index'
     'data':               'data'
+    'gcm':                'gcm'
     'push-notification':  'push_notification'
     'in-app-purchase':    'in_app_purchase'
     'passbook':           'passbook'
@@ -24,6 +25,12 @@ class Helios.Routers.Root extends Backbone.Router
   data: ->
     Helios.entities.fetch(type: 'OPTIONS')
     @views.entities.render()
+
+  gcm: ->
+    @android_devices ?= new Helios.Collections.Devices
+    @android_devices.paginator_core.url = Helios.services['gcm'] + '/devices'
+    @views.andoid_devices ?= new Helios.Views.AndroidDevices(collection: @android_devices)
+    @views.andoid_devices.render()
 
   push_notification: ->
     @devices ?= new Helios.Collections.Devices

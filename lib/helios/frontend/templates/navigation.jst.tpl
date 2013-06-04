@@ -11,6 +11,12 @@
     </li>
   <% } %>
 
+  <% if(Helios.services['gcm']) { %>
+    <li class="button">
+      <a href="#gcm"><i class="gcm"/> Google Cloud Message</a>
+    </li>
+  <% } %>
+
   <% if(Helios.services['in-app-purchase']) { %>
     <li class="button">
       <a href="#in-app-purchase"><i class="in-app-purchase"/> In-App Purchase</a>

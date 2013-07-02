@@ -71,6 +71,35 @@ class Helios.Views.Devices extends Backbone.View
     @collection.query = $(e.target).val()
     @collection.fetch()
 
+class Helios.Views.AndroidDevices extends Backbone.View
+  template: JST['gcm/devices']
+  el: "[role='main']"
+
+  events:
+    'keyup form.filter input': 'filter'
+
+  initialize: ->
+    @datagrid = new Backbone.Datagrid({
+      collection: @collection,
+      columns: @collection.fields,
+      paginated: true,
+      perPage: 20
+    })
+
+  render: =>
+    @$el.html(@template())
+
+    # @composeView ?= new Helios.Views.Compose()
+    # @composeView.render()
+    @$el.find("#datagrid").html(@datagrid.el)
+
+    @
+
+  filter: (e) ->
+    e.preventDefault()
+    @collection.query = $(e.target).val()
+    @collection.fetch()
+        
 class Helios.Views.Compose extends Backbone.View
   template: JST['push-notification/compose']
   el: "#compose-modal"

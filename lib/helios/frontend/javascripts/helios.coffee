@@ -63,6 +63,8 @@ $ ->
           Helios.services['newsstand'] = href
         when "Helios::Backend::PushNotification"
           Helios.services['push-notification'] = href
+        when "Helios::Backend::Gcm"
+          Helios.services['gcm'] = href
         when "Helios::Backend::Passbook"
           Helios.services['passbook'] = href
 

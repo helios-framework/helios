@@ -67,7 +67,6 @@ class Helios.Collections.Devices extends Helios.Collection
   comparator: (device) ->
     device.get('token')
 
-
 class Helios.Collections.Receipts extends Helios.Collection
   model: Helios.Models.Receipt
 

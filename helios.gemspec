@@ -36,6 +36,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails-database-url", "~> 1.0"
   s.add_dependency "fog", "~> 1.10"
   s.add_dependency "houston", "~> 0.2"
+  s.add_dependency "rack-gcm", "~> 0.0.2"
+  s.add_dependency "sanjose", "~> 0.0.3"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"

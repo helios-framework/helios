@@ -77,6 +77,7 @@ Bundler.require
 run Helios::Application.new do
   service :data, model: 'path/to/DataModel.xcdatamodel'
   service :push_notification, apn_certificate: 'path/to/apple_push_notification.pem', apn_environment: 'development'
+  service :gcm, gcm_api_key: 'xxxxxxx'
   service :in_app_purchase
   service :passbook
 end
@@ -103,6 +104,7 @@ Helios can be run as Rails middleware by adding this to the configuration block 
 config.middleware.use Helios::Application do
   service :data, model: 'path/to/DataModel.xcdatamodel'
   service :push_notification, apn_certificate: 'path/to/apple_push_notification.pem', apn_environment: 'development'
+  service :gcm, gcm_api_key: 'xxxxxxx'
   service :in_app_purchase
   service :passbook
 end
@@ -157,15 +159,39 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 <table>
   <caption>Endpoints</caption>
   <tr>
-    <td><tt>PUT /devices/:token</tt></td>
+    <td><tt>PUT /push_notification/devices/:token</tt></td>
     <td>Register or update existing device for push notifications</td>
   </tr>
   <tr>
-    <td><tt>DELETE /devices/:token</tt></td>
+    <td><tt>DELETE /push_notification/devices/:token</tt></td>
     <td>Unregister a device from receiving push notifications</td>
   </tr>
   <tr>
-    <td><tt>POST /message</tt></td>
+    <td><tt>POST /push_notification/message</tt></td>
+    <td>Send out a push notification to some devices</td>
+  </tr>
+</table>
+
+---
+
+`gcm`: Adds Android push notification(Google Cloud Messaging) registration / unregistration endpoints.
+
+**Associated Classes**
+
+- `Rack::GCM::Device`
+
+<table>
+  <caption>Endpoints</caption>
+  <tr>
+    <td><tt>PUT /gcm/devices/:token</tt></td>
+    <td>Register or update existing device for push notifications</td>
+  </tr>
+  <tr>
+    <td><tt>DELETE /gcm/devices/:token</tt></td>
+    <td>Unregister a device from receiving push notifications</td>
+  </tr>
+  <tr>
+    <td><tt>POST /gcm/message</tt></td>
     <td>Send out a push notification to some devices</td>
   </tr>
 </table>
@@ -274,7 +300,13 @@ To run Helios in development mode on `localhost`, run the `server` command:
 
 Once you have registered a device and set up your certificate, try this:
 
-    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/push-notification/message
+
+### Testing Android Push Notifications(Google Cloud Messaging)
+
+Once you have registered a device and set up your certificate, try this:
+
+    $ curl -X POST -d 'payload={"alert":"Blastoff!"}' http://localhost:5000/gcm/message
 
 ### Running the Helios Console
 
@@ -336,6 +368,13 @@ Now covert the p12 file to a pem file:
 
     $ openssl pkcs12 -in cert.p12 -out apple_push_notification.pem -nodes -clcerts
 
+## Integrating with an Android Application
+    
+### Google Cloud Messaging Registration
+
+See more detail [Google Cloud Messaging Tutorial](http://developer.android.com/google/gcm/gs.html)
+
+
 ## Coming Attractions
 
 There's still a lot to do to make Helios even better. Here are some ideas that are at the top of the list:
@@ -346,7 +385,7 @@ There's still a lot to do to make Helios even better. Here are some ideas that a
 - Better RubyMotion integration
 - Support for multiple schema definitions (not just Core Data)
 - Send push notifications from the UI
-- Support for additional platforms (Android, WP7)
+- Support for additional platforms (WP7)
 
 ---
 

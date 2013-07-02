@@ -12,7 +12,7 @@ module Helios
           run Helios::Frontend.new
         end
 
-        run Helios::Backend.new(&block)
+        run Rack::Cascade.new [app, Helios::Backend.new(&block)]
       end
     end
 

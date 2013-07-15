@@ -64,3 +64,11 @@ module Helios
     end
   end
 end
+
+# Workaround for Sinatra::Assetpack bug
+# See https://github.com/helios-framework/helios/issues/68
+class Sinatra::AssetPack::Package
+  def to_production_html(path_prefix, options={})
+    to_development_html(path_prefix, options)
+  end
+end

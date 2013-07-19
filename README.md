@@ -220,6 +220,30 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
   </tr>
 </table>
 
+---
+
+`newsstand`: Adds endpoints for Newsstand. Offers complete management of issues, covers, and assets, with plist-based web services and Atom feeds.
+
+**Associated Classes**
+
+- `Rack::Newsstand::Issue`
+
+<table>
+  <caption>Endpoints</caption>
+  <tr>
+    <td><tt>GET /newsstand/issues</tt></td>
+    <td>Get list of all issues</td>
+  </tr>
+  <tr>
+    <td><tt>GET /newsstand/issues/:name</tt></td>
+    <td>Get a specific issue</td>
+  </tr>
+  <tr>
+    <td><tt>POST /newsstand/issues</tt></td>
+    <td>Add a new issue</td>
+  </tr>
+</table>
+
 ## Command-Line Interface
 
 Helios comes with a CLI to help create and manage your application. After you `$ gem install helios`, you'll have the `helios` binary available.
@@ -275,6 +299,41 @@ To run Helios in development mode on `localhost`, run the `server` command:
 Once you have registered a device and set up your certificate, try this:
 
     $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+    
+### Setting Up Storage for Newsstand
+
+In order to set up storage for Newsstand, you will need an account with one of the following cloud storage providers:
+
+- Amazon
+- Google
+- Rackspace 
+
+In your application directory, edit the `config.ru` with your credentials for the cloud storage provider of your choice. Here is an example configuration using AWS.
+
+```ruby
+
+require 'bundler'
+Bundler.require
+
+app = Helios::Application.new {
+    service :data, model: Dir['*.xcdatamodel*'].first if Dir['*.xcdatamodel*'].any?
+    service :push_notification
+    service :in_app_purchase
+    service :passbook
+    service :newsstand, { :storage => { 
+    	:provider => 'AWS', 
+    	:aws_access_key_id => 'YOUR_ACCESS_KEY_ID', 
+    	:aws_secret_access_key => 'YOUR_SECRET_ACCESS_KEY' 
+    	}
+    }
+}
+
+run app
+
+```
+
+For other configuration options, see [fog.io](http://fog.io/storage/). 
+
 
 ### Running the Helios Console
 

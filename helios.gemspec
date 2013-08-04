@@ -39,6 +39,18 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
+  s.add_development_dependency "pg"
+  s.add_development_dependency "rack-test"
+  s.add_development_dependency "pry-debugger"
+  s.add_development_dependency "pry"
+  s.add_development_dependency "json_spec"
+  s.add_development_dependency "factory_girl"
+  s.add_development_dependency "database_cleaner"
+  s.add_development_dependency "guard"
+  s.add_development_dependency "rb-fsevent"
+  s.add_development_dependency "guard-bundler"
+  s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "simplecov"
 
   s.files         = Dir["./**/*"].reject{|file| file =~ /\.\/(bin|example|log|pkg|script|spec|test|vendor)/} + Dir.glob("./lib/helios/templates/*", File::FNM_DOTMATCH)
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

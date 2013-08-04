@@ -120,7 +120,7 @@ Each service in Helios can be enabled and configured separately:
 
 **Associated Classes**
 
-Each entity in the specified data model will have a `Sequel::Model` subclass created for it under the `Rack::CoreData::Models` namespace.
+Each entity in the specified data model will have a `Sequel::Model` subclass created for it under the `Rack::Scaffold::Adapters::CoreData` namespace.
 
 <table>
   <caption>Endpoints</caption>
@@ -157,11 +157,14 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 <table>
   <caption>Endpoints</caption>
   <tr>
-    <td><tt>PUT /devices/:token</tt></td>
+  	<td><tt>GET /push_notification/devices</tt></td>
+  	<td>Get list of all the registered devices</td>
+  <tr>
+    <td><tt>PUT /push_notification/devices</tt></td>
     <td>Register or update existing device for push notifications</td>
   </tr>
   <tr>
-    <td><tt>DELETE /devices/:token</tt></td>
+    <td><tt>DELETE /push_notification/devices/:token</tt></td>
     <td>Unregister a device from receiving push notifications</td>
   </tr>
   <tr>
@@ -182,12 +185,20 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 <table>
   <caption>Endpoints</caption>
   <tr>
-    <td><tt>POST /receipts/verify</tt></td>
+    <td><tt>POST /in_app_purchase/receipts/verify</tt></td>
     <td>Decode the associated Base64-encoded <tt>receipt-data</tt>, recording the receipt data and verifying the information with Apple</td>
   </tr>
   <tr>
-    <td><tt>GET /products/identifiers</tt></td>
+    <td><tt>GET /in_app_purchase/products/identifiers</tt></td>
     <td>Return an array of valid product identifiers</td>
+  </tr>
+  <tr>
+    <td><tt>GET /in_app_purchase/products/identifiers/:product_identifier</tt></td>
+    <td>Get the specific product</td>
+  </tr>
+  <tr>
+    <td><tt>POST /in_app_purchase/products/identifiers</tt></td>
+    <td>Create a new product</td>
   </tr>
 </table>
 
@@ -259,6 +270,7 @@ Helios comes with a CLI to help create and manage your application. After you `$
       link                 Links a Core Data model
       new                  Creates a new Helios project
       server               Start running Helios locally
+      
 
 ### Creating an Application
 
@@ -343,7 +355,17 @@ You can start an IRB session with the runtime environment of the Helios applicat
 
 This command activates the services as configured by your Helios application, including any generated Core Data models. The `rack` module is automatically included on launch, allowing you to access everything more directly:
 
-    > Passbook::Passes.all # => [...]
+```ruby
+
+Rack::Passbook::Pass.all # => [...]
+Rack::InAppPurchase::Receipt.all # => [...]
+Rack::InAppPurchase::Product.all # => [...]
+Rack::PushNotification::Device.all # => [...]
+Rack::Newsstand::Issue.all # => [...]
+
+```
+    
+    
 
 ## Deploying to Heroku
 

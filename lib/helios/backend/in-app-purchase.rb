@@ -40,4 +40,56 @@ class Helios::Backend::InAppPurchase < Sinatra::Base
       }.to_json
     end
   end
+
+  post '/receipts/verify' do
+    param :'receipt-data', String, required: true
+
+    status 203
+
+    begin
+      receipt = Venice::Receipt.verify!(params[:'receipt-data'])
+
+      Rack::InAppPurchase::Receipt.create({ip_address: request.ip}.merge(receipt.to_h))
+
+      {
+        status: 0,
+        receipt: receipt.to_h
+        #content: content
+      }.select{|k,v| v}.to_json
+    rescue Venice::Receipt::VerificationError => error
+      status 400
+
+      {
+        status: error.message
+      }.to_json
+    rescue
+      halt 500
+    end
+  end
+
+  get '/products/identifiers' do
+    Rack::InAppPurchase::Product.where(is_enabled: true).map(:product_identifier).to_json
+  end
+
+  get '/products/:product_identifier' do
+    record = Rack::InAppPurchase::Product.find(product_identifier: params[:product_identifier])
+
+    if record
+      {product: record}.to_json
+    else
+      status 404
+    end
+  end
+
+  post '/products' do
+    record = Rack::InAppPurchase::Product.new(params)
+
+    if record.save
+      status 201
+      {product: record}.to_json
+    else
+      status 400
+      {errors: record.errors}.to_json
+    end
+  end
 end

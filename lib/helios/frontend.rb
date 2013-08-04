@@ -6,6 +6,7 @@ require 'rack/contrib'
 
 require 'compass'
 require 'zurb-foundation'
+require 'haml'
 
 module Helios
   class Frontend < Sinatra::Base

@@ -2,11 +2,14 @@ require 'rack/push-notification'
 
 require 'sinatra/base'
 require 'sinatra/param'
+require 'rack/contrib'
 
 require 'houston'
 
 class Helios::Backend::PushNotification < Sinatra::Base
   helpers Sinatra::Param
+  use Rack::PostBodyContentTypeParser
+
   attr_reader :apn_certificate, :apn_environment
 
   def initialize(app, options = {}, &block)
@@ -52,6 +55,35 @@ class Helios::Backend::PushNotification < Sinatra::Base
       {device: record}.to_json
     else
       status 404
+    end
+  end
+
+  put '/devices/?' do
+    token = params[:token].strip.gsub(/[<\s>]/, '') if params[:token]
+
+    if record = ::Rack::PushNotification::Device.find(:token => token)
+      tag_string = "{"
+      tag_array = JSON.parse(params["tags"])
+      tag_array.each_with_index do |e, i|
+        tag_string << e
+        tag_string << ', ' unless i == tag_array.count - 1
+      end
+      tag_string << "}"
+      params["tags"] = tag_string
+
+      record.update(params)
+      status 200
+      {device: record}.to_json
+    else
+      record ||= ::Rack::PushNotification::Device.new(params)
+
+      if record.save
+        status 201
+        {device: record}.to_json
+      else
+        status 400
+        {errors: record.errors}.to_json
+      end
     end
   end
 

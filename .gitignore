@@ -17,3 +17,4 @@ example/.sass-cache
 .yardoc
 _yardoc
 doc/
+.sass-cache

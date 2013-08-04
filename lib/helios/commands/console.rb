@@ -11,7 +11,10 @@ command :console do |c|
       include Rack
 
       Dotenv.load
-      Sequel.connect(ENV['DATABASE_URL'])
+      DB = Sequel.connect(ENV['DATABASE_URL'])
+
+      options = {:model => Dir['*.xcdatamodel*'].first}
+      backend = Helios::Backend::Data.new(nil, options)
 
       ARGV.clear
       IRB.start

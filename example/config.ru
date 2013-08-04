@@ -2,8 +2,8 @@ require 'bundler'
 Bundler.require
 
 app = Helios::Application.new do
-    service :data, model: Dir['*.xcdatamodel*'].first, only: [:create, :read]
-    service :push_notification, frontend: false
+    service :data, model: Dir['*.xcdatamodel*'].first, only: [:create, :read, :update, :destroy]
+    service :push_notification, frontend: false, apn_certificate: 'fake_cert.pem', apn_environment: 'development'
     service :in_app_purchase
     service :passbook
     service :newsstand, storage: ({

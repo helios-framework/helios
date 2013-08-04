@@ -1,6 +1,9 @@
-ruby "2.0.0"
+#ruby "2.0.0"
 source "https://rubygems.org"
 
 gem 'helios', path: File.join(__FILE__, "../..")
 gem 'unicorn'
 gem 'pg'
+
+gem 'pry'
+gem 'pry-debugger'

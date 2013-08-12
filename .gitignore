@@ -12,6 +12,7 @@ test/tmp
 test/version_tmp
 tmp
 example/.sass-cache
+.env
 
 # YARD artifacts
 .yardoc

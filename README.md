@@ -298,7 +298,7 @@ To run Helios in development mode on `localhost`, run the `server` command:
 
 Once you have registered a device and set up your certificate, try this:
 
-    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/push_notification/message
     
 ### Setting Up Storage for Newsstand
 

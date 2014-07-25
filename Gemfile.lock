@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/sbauch/houston.git
-  revision: cfc425e7f796b68a2d6ee4ddf26447a3bcf2140f
+  revision: 55a17a70654895ad4eb59915145b7e11b7a04e41
   specs:
     houston (2.1.0)
       commander (~> 4.1)

@@ -70,9 +70,10 @@ class Helios::Backend::PushNotification < Sinatra::Base
     tokens = params[:tokens] || ::Rack::PushNotification::Device.all.collect(&:token)
 
     options = JSON.parse(params[:payload])
-    options[:alert] = options["aps"]["alert"]
-    options[:badge] = options["aps"]["badge"]
-    options[:sound] = options["aps"]["sound"]
+    options[:alert]    = options["aps"]["alert"]
+    options[:badge]    = options["aps"]["badge"]
+    options[:sound]    = options["aps"]["sound"]
+    options[:category] = options["aps"]["category"]
     options.delete("aps")
 
     begin

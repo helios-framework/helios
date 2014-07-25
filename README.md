@@ -157,15 +157,15 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 <table>
   <caption>Endpoints</caption>
   <tr>
-    <td><tt>PUT /devices/:token</tt></td>
+    <td><tt>PUT push_notification/devices/:token</tt></td>
     <td>Register or update existing device for push notifications</td>
   </tr>
   <tr>
-    <td><tt>DELETE /devices/:token</tt></td>
+    <td><tt>DELETE push_notification/devices/:token</tt></td>
     <td>Unregister a device from receiving push notifications</td>
   </tr>
   <tr>
-    <td><tt>POST /message</tt></td>
+    <td><tt>POST push_notification/message</tt></td>
     <td>Send out a push notification to some devices</td>
   </tr>
 </table>
@@ -298,7 +298,7 @@ To run Helios in development mode on `localhost`, run the `server` command:
 
 Once you have registered a device and set up your certificate, try this:
 
-    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+    $ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/push_notification/message
     
 ### Setting Up Storage for Newsstand
 

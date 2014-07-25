@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
-gem 'houston', github: 'sbauch/houston'
 
 gemspec
+
+@dependencies.delete_if {|d| d.name == “houston” }
+gem 'houston', github: 'sbauch/houston'

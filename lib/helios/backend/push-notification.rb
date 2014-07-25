@@ -3,7 +3,7 @@ require 'rack/push-notification'
 require 'sinatra/base'
 require 'sinatra/param'
 
-# require 'houston'
+require 'houston'
 
 class Helios::Backend::PushNotification < Sinatra::Base
   helpers Sinatra::Param

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/sbauch/houston.git
-  revision: 55a17a70654895ad4eb59915145b7e11b7a04e41
+  revision: 1855ee0e917db7c1bf3e73036f814d3194590ef2
   specs:
     houston (2.1.0)
       commander (~> 4.1)
@@ -17,7 +17,6 @@ PATH
       fog (~> 1.10)
       foreman (~> 0.63)
       haml (>= 3.1)
-      houston (~> 2.1.0)
       json (~> 1.7)
       rack-contrib (~> 1.1)
       rack-in-app-purchase (~> 0.1)

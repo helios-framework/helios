@@ -4,9 +4,6 @@
   <form class="filter">
     <input type="text" placeholder="Filter Devices..." value=""/>
   </form>
-  <% if (false) { %>
-  <button class="button" data-reveal-id="compose-modal">Compose</button>
-  <% } %>
 </div>
 
 <div class="master">

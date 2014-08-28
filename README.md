@@ -154,9 +154,9 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 
 |                           |                                                           |
 |---------------------------|-----------------------------------------------------------|
-| `PUT /devices/:token`     | Register or update existing device for push notifications |
-| `DELETE /devices/:token`  | Unregister a device from receiving push notifications     |
-| `POST /message`           | Send out a push notification to some devices              |
+| `PUT /push_notification/devices/:token`     | Register or update existing device for push notifications |
+| `DELETE /push_notification/devices/:token`  | Unregister a device from receiving push notifications     |
+| `POST /push_notification/message`           | Send out a push notification to some devices              |
 
 ---
 
@@ -169,8 +169,8 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 
 |                              |                                                           |
 |------------------------------|-----------------------------------------------------------|
-| `POST /receipts/verify`      | Decode the associated Base64-encoded `receipt-data`, recording the receipt data and verifying the information with Apple |
-| `GET /products/identifiers`  | Get an array of valid product identifiers                 |
+| `POST /in_app_purchase/receipts/verify`      | Decode the associated Base64-encoded `receipt-data`, recording the receipt data and verifying the information with Apple |
+| `GET /in_app_purchase/products/identifiers`  | Get an array of valid product identifiers                 |
 
 ---
 
@@ -183,10 +183,10 @@ Each entity in the specified data model will have a `Sequel::Model` subclass cre
 
 |                           |                                                    |
 |---------------------------|----------------------------------------------------|
-| `GET /v1/passes/:passTypeIdentifier/:serialNumber` | Get the Latest Version of a Pass |
-| `GET /v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier[?passesUpdatedSince=tag]` | Get the Serial Numbers for Passes Associated with a Device |
-| `POST /v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier/:serialNumber` | Register a Device to Receive Push Notifications for a Pass |
-| `DELETE /v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier/:serialNumber` | Unregister a Device |
+| `GET /passbook/v1/passes/:passTypeIdentifier/:serialNumber` | Get the Latest Version of a Pass |
+| `GET /passbook/v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier[?passesUpdatedSince=tag]` | Get the Serial Numbers for Passes Associated with a Device |
+| `POST /passbook/v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier/:serialNumber` | Register a Device to Receive Push Notifications for a Pass |
+| `DELETE /passbook/v1/devices/:deviceLibraryIdentifier/registrations/:passTypeIdentifier/:serialNumber` | Unregister a Device |
 
 ---
 
@@ -265,7 +265,7 @@ $ helios server
 Once you have registered a device and set up your certificate, try this:
 
 ```
-$ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/message
+$ curl -X POST -d 'payload={"aps": {"alert":"Blastoff!"}}' http://localhost:5000/push_notification/message
 ```
 
 ### Setting Up Storage for Newsstand

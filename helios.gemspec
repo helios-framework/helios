@@ -5,7 +5,7 @@ require "helios/version"
 Gem::Specification.new do |s|
   s.name        = "helios"
   s.authors     = ["Mattt Thompson"]
-  s.email       = "mattt@heroku.com"
+  s.email       = "m@mattt.me"
   s.license     = "MIT"
   s.homepage    = "http://helios.io"
   s.version     = Helios::VERSION
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-in-app-purchase", "~> 0.1"
   s.add_dependency "rack-passbook", "~> 0.1"
   s.add_dependency "rack-newsstand", "~> 0.1"
-  s.add_dependency "rack-scaffold", ">= 0.0.3"
+  s.add_dependency "rack-scaffold", "~> 0.2"
   s.add_dependency "core_data"
   s.add_dependency "json", "~> 1.7"
   s.add_dependency "coffee-script", "~> 2.2"
@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency "zurb-foundation", "4.1.2"
   s.add_dependency "rails-database-url", "~> 1.0"
   s.add_dependency "fog", "~> 1.10"
-  s.add_dependency "houston", "~> 0.2"
+  s.add_dependency "houston", "~> 2.2"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"

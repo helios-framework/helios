@@ -8,6 +8,8 @@ command :link do |c|
     say_error "Missing argument: path/to/Model.xcdatamodel" and abort if args.empty?
     path = args.first
 
+    say_error "Cannot link to a .xcdatamodeld file" and abort if File.extname(path) == ".xcdatamodeld"
+
     begin
       File.link(path, File.basename(path))
       say_ok "Xcode data model successfully linked"

@@ -73,6 +73,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     options[:alert] = options["aps"]["alert"]
     options[:badge] = options["aps"]["badge"]
     options[:sound] = options["aps"]["sound"]
+    options[:'content-available'] = options["aps"]["content-available"]
     options.delete("aps")
 
     begin

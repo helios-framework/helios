@@ -37,6 +37,7 @@ command :new do |c|
         erb = ERB.new(File.read(template))
 
         next if file === "Gemfile" and options.skip_gemfile
+        next if file === ".gitignore" and options.skip_git
 
         if File.exist?(file)
           if options.force and not options.skip

@@ -323,6 +323,7 @@ Once you've installed the [Heroku Toolbelt](https://toolbelt.heroku.com), and ha
 
 ```
 $ heroku create
+$ git add .
 $ git push heroku master
 ```
 

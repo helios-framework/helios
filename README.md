@@ -314,7 +314,11 @@ $ helios console
 This command activates the services as configured by your Helios application, including any generated Core Data models. The `rack` module is automatically included on launch, allowing you to access everything more directly:
 
 ```ruby
-> Passbook::Passes.all # => [...]
+> Data::Artist.all #=> [...]
+> InAppPurchase::Receipt.all #=> [...]
+> Newsstand::Issue.all #=> [...]
+> Passbook::Passes.all #=> [...]
+> PushNotification::Device.all #=> [...]
 ```
 
 ## Deploying to Heroku

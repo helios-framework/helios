@@ -13,6 +13,11 @@ command :console do |c|
       Dotenv.load
       Sequel.connect(ENV['DATABASE_URL'])
 
+      Rack::Scaffold.new(models: Dir['*.xcdatamodel*'])
+      Rack::Scaffold::Adapters::CoreData.constants.each do |constant|
+        Data.const_set(constant, Rack::Scaffold::Adapters::CoreData.const_get(constant))
+      end
+
       ARGV.clear
       IRB.start
   end

@@ -21,7 +21,6 @@ class Helios::Backend::Data < Sinatra::Base
   end
 
   options '/resources' do
-
     links = []
     @model.entities.each do |entity|
       links << %{</#{entity.name.downcase.pluralize}>; rel="resource"}

@@ -77,7 +77,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     options.delete("aps")
 
     begin
-      notifications = tokens.collect{|token| Houston::Notification.new(options.update({device: token}))}
+      notifications = tokens.collect{|token| Houston::Notification.new(options.dup.update({device: token}))}
       client.push(*notifications)
 
       status 204

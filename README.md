@@ -246,7 +246,7 @@ In order to keep your data model and REST webservices in sync, you can link it t
 $ helios link path/to/DataModel.xcdatamodel
 ```
 
-This creates a hard link between the data model file in your Xcode and Helios projects—any changes made to either file will affect both. The next time you start the server, Helios will automatically migrate the database to create tables and insert columns to accomodate any new entities or attributes.
+This creates a hard link between the data model file in your Xcode and Helios projects—any changes made to either file will affect both. The next time you start the server, Helios will automatically migrate the database to create tables and insert columns to accommodate any new entities or attributes.
 
 > If you are using OS X, do not attempt to delete your Helios application directory using `rm -r` if you have linked a Core Data model. Doing so will result in the removal of the Xcode data model itself. Instead use the finder to move the Helios application directory to trash.
 
